@@ -231,7 +231,14 @@ tfoot td.num { text-align: right; }
     <div class="card">
       <div class="card-title">
         📋 <span id="detail-label"></span>
-        <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
+        <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <div style="display:flex;align-items:center;gap:6px;background:#f8f0ec;border:1px solid var(--rose);border-radius:8px;padding:5px 12px">
+            <span style="font-size:12px;color:var(--muted);white-space:nowrap">手数料率</span>
+            <input id="commission-rate-input" type="number" min="0" max="100" value="20"
+              style="width:52px;border:none;background:transparent;font-size:14px;font-weight:700;color:var(--deep);text-align:center;outline:none"
+              onchange="updateCommissionRate(this.value)">
+            <span style="font-size:12px;color:var(--muted)">%</span>
+          </div>
           <select id="filter-vendor" onchange="renderDetailTable()" style="padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none"></select>
           <input type="text" id="filter-q" oninput="renderDetailTable()" placeholder="🔍 商品名検索..." style="padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;min-width:160px">
           <button class="btn btn-secondary btn-sm" onclick="exportCSV()">⬇ CSV出力</button>
@@ -247,7 +254,7 @@ tfoot td.num { text-align: right; }
             <th class="sort" onclick="doSort('qty')" style="text-align:right">販売数</th>
             <th class="sort" onclick="doSort('price')" style="text-align:right">単価</th>
             <th class="sort" onclick="doSort('revenue')" style="text-align:right">売上合計</th>
-            <th style="text-align:right">手数料(20%)</th>
+            <th style="text-align:right" id="commission-header">手数料(20%)</th>
             <th class="sort" onclick="doSort('payout')" style="text-align:right">支払い金額</th>
             <th style="width:40px"></th>
           </tr></thead>
@@ -546,7 +553,111 @@ function saveEditSeller() {
   persist(); renderSellersList(); closeEditModal(); toast('販売者情報を更新しました ✓');
 }
 
-// ===== CSV Import =====
+// ===== 個別販売者CSVパーサー =====
+function parseSellerCSV(text, filename) {
+  const lines=text.split('\n').map(l=>l.trim()).filter(l=>l);
+  const headers=csvLine(lines[0]);
+  const idx=h=>headers.findIndex(x=>x===h);
+  const iName=idx('宛名'), iMonth=idx('精算対象月'), iItem=idx('商品名');
+  const iPrice=idx('単価（円）'), iQty=idx('販売数'), iAmount=idx('売上金額（円）');
+
+  // 集計・サマリー行のキーワード
+  const skipKeywords=['合計','手数料','支払対象額','振込手数料','最終振込金額'];
+
+  const rows=[]; let sellerName=''; let label='';
+  for (let i=1;i<lines.length;i++) {
+    const c=csvLine(lines[i]);
+    const item=(c[iItem]||'').trim();
+    const month=(c[iMonth]||'').trim();
+    if (!sellerName && c[iName]) sellerName=c[iName].trim();
+    if (!label && month) label=month;
+    // サマリー行はスキップ
+    if (skipKeywords.some(k=>item.includes(k))) continue;
+    const qty=parseInt(c[iQty]||'0')||0;
+    const price=parseInt(c[iPrice]||'0')||0;
+    if (!item || qty===0) continue;
+    rows.push({name:item, price, qty});
+  }
+
+  if (!rows.length) { toast('商品データが見つかりません','err'); return; }
+
+  // 販売者を名前で探す（部分一致）
+  let matchedSeller=S.sellers.find(s=>s.name===sellerName);
+  if (!matchedSeller) matchedSeller=S.sellers.find(s=>sellerName.includes(s.name)||s.name.includes(sellerName));
+
+  // 既存の月次レコードを探す
+  const existMonth=S.records.find(r=>r.label===label);
+
+  // インポート結果表示
+  const sellerOptions=S.sellers.map(s=>`<option value="${s.id}" ${matchedSeller?.id===s.id?'selected':''}>${s.name}</option>`).join('');
+  S._pendingSellerImport={rows, sellerName, label, matchedSeller, existMonth};
+
+  const el=document.getElementById('import-result');
+  el.style.display='block';
+  document.getElementById('import-body').innerHTML=`
+    <div style="background:#f0f8f0;border:1px solid #90c890;border-radius:10px;padding:14px 16px;margin-bottom:14px">
+      <div style="font-size:13px;font-weight:600;color:#3a6a3a;margin-bottom:10px">📄 個別販売者フォーマット検出</div>
+      <div class="form-row" style="margin-bottom:10px">
+        <div class="form-group">
+          <label>CSVの宛名</label>
+          <div style="font-size:13px;font-weight:600;padding:8px 0">${sellerName}</div>
+        </div>
+        <div class="form-group">
+          <label>精算対象月</label>
+          <div style="font-size:13px;font-weight:600;padding:8px 0">${label}</div>
+        </div>
+        <div class="form-group">
+          <label>対応する登録販売者</label>
+          <select id="seller-import-sel" style="padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px">
+            <option value="">— 選択してください —</option>
+            ${sellerOptions}
+          </select>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">
+        商品 ${rows.length}件：${rows.map(r=>`${r.name}（${r.qty}個 / ¥${r.price.toLocaleString()}）`).join('、')}
+      </div>
+      ${existMonth?`<div style="background:#fff8e8;border:1px solid #e8d080;border-radius:8px;padding:10px 14px;font-size:13px">⚠️ <strong>${label}</strong> のデータが既にあります。この販売者分のデータを追加・上書きします。</div>`:'<div style="font-size:12px;color:var(--muted)">※ 対象月のデータがない場合は新規作成されます。</div>'}
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="mergeSellerData()">💾 月次データにマージ</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('import-result').style.display='none'">キャンセル</button>
+    </div>`;
+}
+
+function mergeSellerData() {
+  const p=S._pendingSellerImport; if (!p) return;
+  const sellerId=document.getElementById('seller-import-sel')?.value;
+  if (!sellerId) { toast('販売者を選択してください','err'); return; }
+  const seller=S.sellers.find(s=>s.id===sellerId);
+  if (!seller) return;
+
+  // 新規行を作成
+  const newRows=p.rows.map(r=>({
+    sellerId, vendor:seller.vendor||seller.name,
+    name:r.name, price:r.price, qty:r.qty, match:'full'
+  }));
+
+  if (p.existMonth) {
+    // 既存月に追加（この販売者の旧データを削除してから追加）
+    p.existMonth.rows=p.existMonth.rows.filter(r=>r.sellerId!==sellerId);
+    p.existMonth.rows.push(...newRows);
+  } else {
+    // 新規月を作成
+    S.records.unshift({
+      id:Date.now()+'', label:p.label, period:p.label,
+      rows:newRows, savedAt:new Date().toLocaleDateString('ja-JP')
+    });
+  }
+
+  persist();
+  S._pendingSellerImport=null;
+  document.getElementById('import-result').style.display='none';
+  renderMonthGrid();
+  toast(`${seller.name} の ${p.label} データをマージしました ✓`);
+}
+
+
 function handleCSV(inp) {
   const f=inp.files[0]; if (!f) return;
   const r=new FileReader(); r.onload=e=>parseCSV(e.target.result,f.name); r.readAsText(f,'UTF-8');
@@ -566,6 +677,13 @@ function parseCSV(text, filename) {
   if (lines.length<2) { toast('CSVが空です','err'); return; }
   const headers=csvLine(lines[0]);
   const idx=h=>headers.findIndex(x=>x===h);
+
+  // ===== 個別販売者フォーマット検出（宛名・精算対象月列がある場合）=====
+  if (idx('宛名')>=0 && idx('精算対象月')>=0) {
+    parseSellerCSV(text, filename);
+    return;
+  }
+
   const iN=idx('Lineitem name'), iQ=idx('Lineitem quantity'), iP=idx('Lineitem price');
   const iV=idx('Vendor'), iC=idx('Created at');
   if (iN<0||iQ<0||iP<0) { toast('Shopify形式のCSVではありません','err'); return; }
@@ -724,6 +842,24 @@ function saveRecord() {
 }
 
 // ===== Monthly =====
+function getMonthRate(monthId) {
+  const m = S.records.find(r=>r.id===(monthId||S.curMonthId));
+  return (typeof m?.commissionRate==='number' ? m.commissionRate : 20) / 100;
+}
+
+function updateCommissionRate(val) {
+  const rate = parseFloat(val);
+  if (isNaN(rate) || rate < 0 || rate > 100) return;
+  const m = S.records.find(r=>r.id===S.curMonthId); if (!m) return;
+  m.commissionRate = rate;
+  persist();
+  // ヘッダーを更新
+  const h = document.getElementById('commission-header');
+  if (h) h.textContent = `手数料(${rate}%)`;
+  showDetail(S.curMonthId);
+  toast(`手数料率を ${rate}% に変更しました ✓`);
+}
+
 function agg(rows) {
   const map={};
   rows.forEach(r=>{
@@ -755,7 +891,8 @@ function agg(rows) {
   });
 
   return Object.values(byName).map(r=>{
-    const rev=r.qty*r.price, comm=Math.round(rev*0.2);
+    const rate = getMonthRate();
+    const rev=r.qty*r.price, comm=Math.round(rev*rate);
     return {...r, revenue:rev, commission:comm, payout:rev-comm};
   });
 }
@@ -793,6 +930,12 @@ function showDetail(id) {
   S.curMonthId=id;
   S._editingRows.clear();
   updateBatchSaveBar();
+  // 手数料率を設定
+  const rate = typeof m.commissionRate==='number' ? m.commissionRate : 20;
+  const rateInput = document.getElementById('commission-rate-input');
+  if (rateInput) rateInput.value = rate;
+  const h = document.getElementById('commission-header');
+  if (h) h.textContent = `手数料(${rate}%)`;
   document.getElementById('month-detail').style.display='block';
   document.getElementById('detail-label').textContent=m.label+' 月次集計';
 
@@ -815,7 +958,7 @@ function showDetail(id) {
   document.getElementById('detail-summary').innerHTML=`
     <div class="summary-card"><div class="sc-label">総販売数</div><div class="sc-value">${tQ.toLocaleString()}<span style="font-size:13px">個</span></div></div>
     <div class="summary-card"><div class="sc-label">総売上合計</div><div class="sc-value accent">¥${tR.toLocaleString()}</div></div>
-    <div class="summary-card"><div class="sc-label">総手数料(20%)</div><div class="sc-value">¥${tC.toLocaleString()}</div></div>
+    <div class="summary-card"><div class="sc-label">総手数料</div><div class="sc-value">¥${tC.toLocaleString()}</div></div>
     <div class="summary-card"><div class="sc-label">総支払い金額</div><div class="sc-value" style="color:var(--success)">¥${tP.toLocaleString()}</div></div>`;
   renderDetailTable();
   document.getElementById('month-detail').scrollIntoView({behavior:'smooth',block:'start'});
@@ -1080,7 +1223,8 @@ function getCarryover(sellerId, currentMonthId) {
     const soldRows = agg(m.rows.filter(r=>r.sellerId===sellerId));
     const tRev = soldRows.reduce((s,r)=>s+r.revenue, 0);
     if (tRev === 0) return null;
-    const comm = Math.round(tRev * 0.2);
+    const rate = getMonthRate(m.id);
+    const comm = Math.round(tRev * rate);
     const payout = tRev - comm;
     return { label: m.label, tRev, comm, payout };
   }).filter(Boolean);
@@ -1109,7 +1253,8 @@ function renderStlSellers() {
   const sellerCards=S.sellers.map(s=>{
     const rows=agg(m.rows.filter(r=>r.sellerId===s.id));
     const tRev=rows.reduce((sum,r)=>sum+r.revenue,0);
-    const payout=tRev-Math.round(tRev*0.2);
+    const rate=getMonthRate(mid);
+    const payout=tRev-Math.round(tRev*rate);
     const isZero=tRev===0;
     const paid=isPaid(mid, s.id);
     const carryovers=getCarryover(s.id, mid);
@@ -1254,9 +1399,10 @@ function dlSettlementCSV(monthId, sellerId) {
   // 空行
   lines.push('');
 
+  const csvRateLabel = `${Math.round((rate||getMonthRate(monthId))*100)}%`;
   // 合計・繰越・最終
   lines.push(`"${seller.name}","${m.label}","当月売上合計",,${tQty},${tRev}`);
-  lines.push(`"${seller.name}","${m.label}","手数料(20%)",,,-${comm}`);
+  lines.push(`"${seller.name}","${m.label}","手数料(${csvRateLabel})",,,-${comm}`);
   lines.push(`"${seller.name}","${m.label}","当月支払対象額",,,${payout}`);
 
   carryovers.forEach(c=>{
@@ -1356,10 +1502,11 @@ function dlXLSX(monthId, sellerId) {
   c(R,3,tRev,true,10,'3D2B35','E8D5C8','right','#,##0');
   R+=2;
 
+  const rateLabel = `${Math.round((rate||getMonthRate(monthId))*100)}%`;
   // Calculation section
   const calcs=[
     ['当月売上合計','',tRev],
-    ['販売手数料(20%)',`${tRev.toLocaleString()} × 20%`,comm],
+    [`販売手数料(${rateLabel})`,`${tRev.toLocaleString()} × ${rateLabel}`,comm],
     ['当月支払対象額',`${tRev.toLocaleString()} − ${comm.toLocaleString()}`,payout],
   ];
   // 繰越行
@@ -1455,13 +1602,13 @@ function buildSettlementData(monthId, sellerId) {
 
   const tRev=rows.reduce((s,r)=>s+r.revenue,0);
   const tQty=rows.reduce((s,r)=>s+r.qty,0);
-  const comm=Math.round(tRev*0.2);
+  const rate = getMonthRate(monthId);
+  const comm=Math.round(tRev*rate);
   const payout=tRev-comm;
-  // 繰越を加算した最終支払い額
   const carryPayout = payout + carryTotal;
   const tfee=carryPayout<20000?300:0;
   const final=carryPayout-tfee;
-  return {m, seller, rows, tRev, tQty, comm, payout, tfee, final, carryovers, carryTotal, carryPayout};
+  return {m, seller, rows, tRev, tQty, comm, payout, tfee, final, carryovers, carryTotal, carryPayout, rate};
 }
 
 function dlPDF(monthId, vendor) {
@@ -1526,9 +1673,10 @@ function dlPDF(monthId, vendor) {
   y=doc.lastAutoTable.finalY+8;
 
   // 計算テーブル
+  const pdfRateLabel = `${Math.round((rate||getMonthRate(monthId))*100)}%`;
   const calcBody=[
     ['当月売上合計','','¥'+tRev.toLocaleString()],
-    ['販売手数料(20%)', tRev.toLocaleString()+' × 20%', '¥'+comm.toLocaleString()],
+    [`販売手数料(${pdfRateLabel})`, tRev.toLocaleString()+' × '+pdfRateLabel, '¥'+comm.toLocaleString()],
     ['当月支払対象額', tRev.toLocaleString()+' − '+comm.toLocaleString(), '¥'+payout.toLocaleString()],
   ];
   // 繰越行
@@ -1616,7 +1764,7 @@ async function dlIMG(monthId, vendor) {
     </table>
     <table class="sp-calc">
       <tr><td>当月売上合計</td><td></td><td>¥${tRev.toLocaleString()}</td></tr>
-      <tr><td>販売手数料(20%)</td><td style="font-size:10px;color:#9a7a7a">${tRev.toLocaleString()} × 20%</td><td>¥${comm.toLocaleString()}</td></tr>
+      <tr><td>販売手数料(${Math.round((rate||getMonthRate(monthId))*100)}%)</td><td style="font-size:10px;color:#9a7a7a">${tRev.toLocaleString()} × ${Math.round((rate||getMonthRate(monthId))*100)}%</td><td>¥${comm.toLocaleString()}</td></tr>
       <tr><td>支払対象額</td><td style="font-size:10px;color:#9a7a7a">${tRev.toLocaleString()} − ${comm.toLocaleString()}</td><td>¥${payout.toLocaleString()}</td></tr>
       <tr><td>振込手数料</td><td style="font-size:10px;color:#9a7a7a">${payout<20000?'20,000円未満のためご負担':'20,000円以上のため当方負担'}</td><td>¥${tfee.toLocaleString()}</td></tr>
       <tr class="final"><td>最終振込金額</td><td></td><td>¥${final.toLocaleString()}</td></tr>
