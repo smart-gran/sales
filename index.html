@@ -1024,24 +1024,25 @@ function editDetailRow(i) {
   const totalQty=rawRows.reduce((s,x)=>s+x.qty,0);
   const row=document.getElementById('drow-'+i); if (!row) return;
   S._editingRows.add(i);
-  // 販売者ドロップダウン
   const sellerOptions=S.sellers.map(s=>
     `<option value="${s.id}" ${s.id===r.sellerId?'selected':''}>${s.name}</option>`
   ).join('');
   row.innerHTML=`
     <td colspan="9" style="background:#fff8f5;border-left:3px solid var(--rose)">
-      <div class="p-edit-row" style="flex-wrap:wrap;gap:10px;padding:12px 14px;align-items:center">
-        <span style="font-size:12px;font-weight:600;color:var(--deep);min-width:180px">${r.name}</span>
+      <div style="padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center">
         <label style="font-size:11px;color:var(--muted)">販売者</label>
         <select id="dedit-seller-${i}" style="padding:5px 8px;border:1px solid var(--rose);border-radius:6px;font-size:12px;font-family:'Noto Sans JP',sans-serif">
           <option value="">— 未割当 —</option>
           ${sellerOptions}
         </select>
+        <label style="font-size:11px;color:var(--muted)">商品名</label>
+        <input id="dedit-name-${i}" value="${r.name.replace(/"/g,'&quot;')}" style="width:260px;padding:5px 8px;border:1px solid var(--rose);border-radius:6px;font-size:12px">
         <label style="font-size:11px;color:var(--muted)">販売数</label>
         <input id="dedit-qty-${i}" type="number" value="${totalQty}" style="width:70px">
         <label style="font-size:11px;color:var(--muted)">単価</label>
         <input id="dedit-price-${i}" type="number" value="${r.price}" style="width:90px">
         <button class="btn btn-secondary btn-sm" onclick="cancelRowEdit(${i})">✕ キャンセル</button>
+        <button class="btn btn-sm" style="background:#d05050;color:white;margin-left:auto" onclick="deleteDetailRow(${i})">🗑 この行を削除</button>
       </div>
     </td>`;
   updateBatchSaveBar();
