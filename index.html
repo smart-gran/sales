@@ -867,31 +867,8 @@ function agg(rows) {
     if (!map[k]) map[k]={vendor:r.vendor, sellerId:r.sellerId||null, name:r.name, price:r.price, qty:0, match:r.match||'none'};
     map[k].qty+=r.qty;
   });
-
-  // 同じ商品名でsellerId有り・無しが混在している場合を統合
-  // （バックアップ復元後の旧データ＋新データの二重計上を防ぐ）
-  const byName={};
-  Object.values(map).forEach(r=>{
-    const n=r.name;
-    if (!byName[n]) {
-      byName[n]={...r};
-    } else {
-      // sellerIdがある方を優先して統合、ない場合は加算しない（別販売者の同名商品は存在しない前提）
-      if (r.sellerId && !byName[n].sellerId) {
-        // sellerId付きの行に統合（旧データのqtyは捨てる）
-        byName[n]={...r};
-      } else if (!r.sellerId && byName[n].sellerId) {
-        // sellerId側が既にある場合は旧データを無視
-        // (何もしない)
-      } else {
-        // 両方sellerId付き（異なる販売者）→通常はありえないが加算
-        byName[n].qty+=r.qty;
-      }
-    }
-  });
-
-  return Object.values(byName).map(r=>{
-    const rate = getMonthRate();
+  const rate = getMonthRate();
+  return Object.values(map).map(r=>{
     const rev=r.qty*r.price, comm=Math.round(rev*rate);
     return {...r, revenue:rev, commission:comm, payout:rev-comm};
   });
@@ -1048,6 +1025,19 @@ function editDetailRow(i) {
   updateBatchSaveBar();
 }
 
+function deleteDetailRow(i) {
+  const m=S.records.find(r=>r.id===S.curMonthId); if (!m) return;
+  const r=S._detailRows[i]; if (!r) return;
+  if (!confirm(`「${r.name}」を削除しますか？`)) return;
+  const sellerPart=r.sellerId||r.vendor;
+  m.rows=m.rows.filter(x=>!((x.sellerId||x.vendor)===sellerPart && x.name===r.name));
+  S._editingRows.delete(i);
+  persist();
+  showDetail(S.curMonthId);
+  updateBatchSaveBar();
+  toast('削除しました');
+}
+
 function cancelRowEdit(i) {
   S._editingRows.delete(i);
   renderDetailTable();
@@ -1075,12 +1065,13 @@ function commitAllEdits() {
     const newQty=parseInt(document.getElementById(`dedit-qty-${i}`)?.value)||0;
     const newPrice=parseInt(document.getElementById(`dedit-price-${i}`)?.value)||0;
     const newSellerId=document.getElementById(`dedit-seller-${i}`)?.value||null;
+    const newName=(document.getElementById(`dedit-name-${i}`)?.value||r.name).trim();
     const newSeller=newSellerId?S.sellers.find(s=>s.id===newSellerId):null;
     m.rows=m.rows.filter(x=>!((x.sellerId||x.vendor)===sellerPart && x.name===r.name));
     m.rows.push({
       sellerId: newSellerId||null,
       vendor: newSeller?newSeller.name:(r.vendor||''),
-      name: r.name, price: newPrice, qty: newQty, match:'full'
+      name: newName, price: newPrice, qty: newQty, match:'full'
     });
     saved++;
   });
