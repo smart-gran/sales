@@ -1419,7 +1419,7 @@ function dlSettlementCSV(monthId, sellerId) {
 
 function dlXLSX(monthId, sellerId) {
   const d=buildSettlementData(monthId, sellerId); if (!d) return;
-  const {m, seller, rows, tRev, tQty, comm, payout, tfee, final, carryovers, carryTotal, carryPayout}=d;
+  const {m, seller, rows, tRev, tQty, comm, payout, tfee, final, carryovers, carryTotal, carryPayout, rate}=d;
   const today=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric'});
 
   const wb=XLSX.utils.book_new();
@@ -1605,7 +1605,7 @@ function buildSettlementData(monthId, sellerId) {
 
 function dlPDF(monthId, vendor) {
   const d=buildSettlementData(monthId,vendor); if (!d) return;
-  const {m,seller,rows,tRev,tQty,comm,payout,tfee,final}=d;
+  const {m,seller,rows,tRev,tQty,comm,payout,tfee,final,carryovers,carryTotal,carryPayout,rate}=d;
   const today=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric'});
   const {jsPDF}=window.jspdf;
   const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
@@ -1730,7 +1730,7 @@ function dlPDF(monthId, vendor) {
 // ===== PNG Image Export (utage用) =====
 async function dlIMG(monthId, vendor) {
   const d=buildSettlementData(monthId,vendor); if (!d) return;
-  const {m,seller,rows,tRev,tQty,comm,payout,tfee,final}=d;
+  const {m,seller,rows,tRev,tQty,comm,payout,tfee,final,carryovers,carryTotal,carryPayout,rate}=d;
   const today=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric'});
 
   const area=document.getElementById('settlement-preview-area');
