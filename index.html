@@ -860,14 +860,14 @@ function updateCommissionRate(val) {
   toast(`手数料率を ${rate}% に変更しました ✓`);
 }
 
-function agg(rows) {
+function agg(rows, monthId) {
   const map={};
   rows.forEach(r=>{
     const k=(r.sellerId||r.vendor)+'|||'+r.name;
     if (!map[k]) map[k]={vendor:r.vendor, sellerId:r.sellerId||null, name:r.name, price:r.price, qty:0, match:r.match||'none'};
     map[k].qty+=r.qty;
   });
-  const rate = getMonthRate();
+  const rate = getMonthRate(monthId);
   return Object.values(map).map(r=>{
     const rev=r.qty*r.price, comm=Math.round(rev*rate);
     return {...r, revenue:rev, commission:comm, payout:rev-comm};
@@ -881,7 +881,7 @@ function renderMonthGrid() {
     return;
   }
   el.innerHTML=`<div class="month-grid">${S.records.map(m=>{
-    const a=agg(m.rows);
+    const a=agg(m.rows,m.id);
     const rev=a.reduce((s,r)=>s+r.revenue,0);
     const vn=[...new Set(m.rows.map(r=>r.vendor))].length;
     return `<div class="month-card${S.curMonthId===m.id?' selected':''}" onclick="selectMonth('${m.id}')">
@@ -929,7 +929,7 @@ function showDetail(id) {
     +unmatched.map(v=>`<option value="vendor:${v}">${v}（未照合）</option>`).join('');
   if (cur) vs.value=cur;
 
-  const a=agg(m.rows);
+  const a=agg(m.rows,m.id);
   const tR=a.reduce((s,r)=>s+r.revenue,0), tC=a.reduce((s,r)=>s+r.commission,0);
   const tP=a.reduce((s,r)=>s+r.payout,0), tQ=a.reduce((s,r)=>s+r.qty,0);
   document.getElementById('detail-summary').innerHTML=`
@@ -947,7 +947,7 @@ function doSort(k) {
 function renderDetailTable() {
   if (!S.curMonthId) return;
   const m=S.records.find(r=>r.id===S.curMonthId); if (!m) return;
-  let rows=agg(m.rows);
+  let rows=agg(m.rows,m.id);
   const vf=document.getElementById('filter-vendor').value;
   const qf=(document.getElementById('filter-q').value||'').toLowerCase();
   if (vf) {
@@ -1212,7 +1212,7 @@ function getCarryover(sellerId, currentMonthId) {
     .sort((a,b) => a.id - b.id);
 
   return prevMonths.map(m => {
-    const soldRows = agg(m.rows.filter(r=>r.sellerId===sellerId));
+    const soldRows = agg(m.rows.filter(r=>r.sellerId===sellerId), m.id);
     const tRev = soldRows.reduce((s,r)=>s+r.revenue, 0);
     if (tRev === 0) return null;
     const rate = getMonthRate(m.id);
@@ -1243,7 +1243,7 @@ function renderStlSellers() {
 
   // 登録済み全販売者（売上ゼロでも全員表示）
   const sellerCards=S.sellers.map(s=>{
-    const rows=agg(m.rows.filter(r=>r.sellerId===s.id));
+    const rows=agg(m.rows.filter(r=>r.sellerId===s.id), mid);
     const tRev=rows.reduce((sum,r)=>sum+r.revenue,0);
     const rate=getMonthRate(mid);
     const payout=tRev-Math.round(tRev*rate);
@@ -1280,7 +1280,7 @@ function renderStlSellers() {
 
   // 未照合カード
   const unmatchedCards=unmatchedVendors.map(v=>{
-    const rows=agg(m.rows.filter(r=>!r.sellerId&&r.vendor===v));
+    const rows=agg(m.rows.filter(r=>!r.sellerId&&r.vendor===v), mid);
     const tRev=rows.reduce((sum,r)=>sum+r.revenue,0);
     return `<div class="seller-card" style="cursor:default;opacity:0.6">
       <div class="sc-name" style="color:var(--muted)">${v}</div>
@@ -1303,7 +1303,7 @@ function markCarryoverPaid(monthId, sellerId) {
     .filter(r => r.id < monthId && !isPaid(r.id, sellerId))
     .sort((a,b)=>a.id-b.id);
   prevMonths.forEach(m => {
-    const soldRows = agg(m.rows.filter(r=>r.sellerId===sellerId));
+    const soldRows = agg(m.rows.filter(r=>r.sellerId===sellerId), m.id);
     const tRev = soldRows.reduce((s,r)=>s+r.revenue,0);
     if (tRev > 0) S.payments[payKey(m.id, sellerId)] = true;
   });
@@ -1569,7 +1569,7 @@ function buildSettlementData(monthId, sellerId) {
   const seller=S.sellers.find(s=>s.id===sellerId)||{name:sellerId, id:sellerId, products:[]};
 
   // 当月売上
-  const soldRows=agg(m.rows.filter(r=>r.sellerId===sellerId));
+  const soldRows=agg(m.rows.filter(r=>r.sellerId===sellerId), monthId);
   const registeredProducts=seller.products||[];
   const zeroRows=registeredProducts
     .filter(p=>!soldRows.find(r=>r.name===p.name))
