@@ -326,6 +326,27 @@ tfoot td.num { text-align: right; }
 <div id="settlement-preview-area"></div>
 
 <!-- 販売者編集モーダル -->
+<div class="modal-overlay" id="bulk-pay-modal" style="display:none" onclick="if(event.target===this)closeBulkPayModal()">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header">
+      <h2>✓ 支払い済みにする販売者を選択</h2>
+      <button class="modal-close" onclick="closeBulkPayModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p id="bulk-pay-desc" style="font-size:13px;color:var(--muted);margin-bottom:14px"></p>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <button class="btn btn-sm btn-secondary" style="font-size:12px" onclick="bulkPaySelectAll(true)">全て選択</button>
+        <button class="btn btn-sm btn-secondary" style="font-size:12px" onclick="bulkPaySelectAll(false)">全て解除</button>
+      </div>
+      <div id="bulk-pay-sellers" style="display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeBulkPayModal()">キャンセル</button>
+      <button class="btn btn-primary" style="background:#e07b6a;border-color:#e07b6a" onclick="execBulkPay()">✓ 支払い済みにする</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="edit-modal" style="display:none" onclick="if(event.target===this)closeEditModal()">
   <div class="modal">
     <div class="modal-header">
