@@ -312,6 +312,7 @@ tfoot td.num { text-align: right; }
         <option value="">— 月を選択 —</option>
       </select>
       <button class="btn btn-sm" style="background:#7ab8a0;color:white;font-size:12px" onclick="dlMonthlyCSV()">📥 月次一覧CSV</button>
+      <button class="btn btn-sm" style="background:#e07b6a;color:white;font-size:12px" onclick="markAllPaidUpToMonth()">✓ この月以前を全員支払い済みにする</button>
     </div>
     <div id="stl-sellers">
       <div class="empty"><p>月を選択すると販売者カードが表示されます</p></div>
@@ -1326,6 +1327,31 @@ function undoCarryoverPaid(monthId, sellerId) {
   persist();
   renderStlSellers();
   toast('繰越支払いを取り消しました');
+}
+
+// ===== Bulk mark all sellers as paid up to selected month =====
+function markAllPaidUpToMonth() {
+  const mid = document.getElementById('stl-month').value;
+  if (!mid) { toast('月を選択してください', 'err'); return; }
+  const m = S.records.find(r => r.id === mid);
+  if (!m) return;
+  if (!confirm(m.label + ' 以前の全販売者を支払い済みにします。\nよろしいですか？')) return;
+  const targetMonths = S.records.filter(r => r.id <= mid);
+  let count = 0;
+  S.sellers.forEach(s => {
+    targetMonths.forEach(month => {
+      if (isPaid(month.id, s.id)) return;
+      const rows = agg(month.rows.filter(r => r.sellerId === s.id), month.id);
+      const tRev = rows.reduce((sum, r) => sum + r.revenue, 0);
+      if (tRev > 0) {
+        S.payments[payKey(month.id, s.id)] = true;
+        count++;
+      }
+    });
+  });
+  persist();
+  renderStlSellers();
+  toast(m.label + ' 以前の全員を支払い済みにしました ✓ (' + count + '件)');
 }
 
 // ===== Monthly All-Sellers CSV =====
