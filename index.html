@@ -1350,29 +1350,65 @@ function undoCarryoverPaid(monthId, sellerId) {
   toast('繰越支払いを取り消しました');
 }
 
-// ===== Bulk mark all sellers as paid up to selected month =====
+// ===== Bulk mark selected sellers as paid up to selected month =====
 function markAllPaidUpToMonth() {
   const mid = document.getElementById('stl-month').value;
   if (!mid) { toast('月を選択してください', 'err'); return; }
   const m = S.records.find(r => r.id === mid);
   if (!m) return;
-  if (!confirm(m.label + ' 以前の全販売者を支払い済みにします。\nよろしいですか？')) return;
+  const targetMonths = S.records.filter(r => r.id <= mid);
+  // Build list of sellers that have any unpaid revenue up to this month
+  const sellerList = S.sellers.map(s => {
+    const hasUnpaid = targetMonths.some(month => {
+      if (isPaid(month.id, s.id)) return false;
+      const rows = agg(month.rows.filter(r => r.sellerId === s.id), month.id);
+      return rows.reduce((sum, r) => sum + r.revenue, 0) > 0;
+    });
+    const hasPaid = targetMonths.some(month => isPaid(month.id, s.id));
+    return { id: s.id, name: s.name, hasUnpaid, hasPaid };
+  }).filter(s => s.hasUnpaid || s.hasPaid);
+
+  if (!sellerList.length) {
+    toast(m.label + ' 以前に対象データがありません', 'err'); return;
+  }
+
+  // Show modal
+  document.getElementById('bulk-pay-desc').textContent =
+    m.label + ' 以前の月をまとめて支払い済みにする販売者を選んでください。';
+  const cont = document.getElementById('bulk-pay-sellers');
+  cont.innerHTML = sellerList.map(s => `
+    <label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;cursor:pointer;background:var(--bg-light)">
+      <input type="checkbox" value="${s.id}" ${s.hasUnpaid ? 'checked' : ''} style="width:16px;height:16px;accent-color:#e07b6a">
+      <span style="font-size:14px;font-weight:500">${s.name}</span>
+      ${!s.hasUnpaid ? '<span style="font-size:11px;color:var(--muted)">(支払い済)</span>' : ''}
+    </label>`).join('');
+  document.getElementById('bulk-pay-modal').style.display = 'flex';
+}
+function closeBulkPayModal() {
+  document.getElementById('bulk-pay-modal').style.display = 'none';
+}
+function bulkPaySelectAll(val) {
+  document.querySelectorAll('#bulk-pay-sellers input[type=checkbox]').forEach(cb => cb.checked = val);
+}
+function execBulkPay() {
+  const mid = document.getElementById('stl-month').value;
+  const m = S.records.find(r => r.id === mid);
+  const checked = [...document.querySelectorAll('#bulk-pay-sellers input[type=checkbox]:checked')].map(cb => cb.value);
+  if (!checked.length) { toast('販売者を選択してください', 'err'); return; }
   const targetMonths = S.records.filter(r => r.id <= mid);
   let count = 0;
-  S.sellers.forEach(s => {
+  checked.forEach(sid => {
     targetMonths.forEach(month => {
-      if (isPaid(month.id, s.id)) return;
-      const rows = agg(month.rows.filter(r => r.sellerId === s.id), month.id);
+      if (isPaid(month.id, sid)) return;
+      const rows = agg(month.rows.filter(r => r.sellerId === sid), month.id);
       const tRev = rows.reduce((sum, r) => sum + r.revenue, 0);
-      if (tRev > 0) {
-        S.payments[payKey(month.id, s.id)] = true;
-        count++;
-      }
+      if (tRev > 0) { S.payments[payKey(month.id, sid)] = true; count++; }
     });
   });
   persist();
+  closeBulkPayModal();
   renderStlSellers();
-  toast(m.label + ' 以前の全員を支払い済みにしました ✓ (' + count + '件)');
+  toast(m.label + ' 以前の' + checked.length + '名を支払い済みにしました ✓');
 }
 
 // ===== Monthly All-Sellers CSV =====
