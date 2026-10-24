@@ -61,23 +61,32 @@ tr:last-child > td { border-bottom: none; }
 /* クリック展開行 */
 .clickable-row { cursor: pointer; }
 .clickable-row:hover td { background: #fdf5f0; }
-.toggle-icon { font-size: 11px; color: var(--muted); margin-left: 8px; }
+.toggle-icon { font-size: 11px; color: var(--muted); margin-left: 8px; transition: transform 0.2s; }
 .expand-row { display: none; }
 .expand-row > td { padding: 0; }
-.expand-inner { background: var(--cream); border-top: 1px solid var(--light-border); border-bottom: 1px solid var(--light-border); }
+.expand-inner { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
-/* 精算書スタイル */
-.seisan-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--light-border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-.seisan-header h3 { font-family: 'Noto Serif JP', serif; font-size: 14px; font-weight: 500; color: var(--deep); }
-.seisan-summary { display: flex; gap: 20px; font-size: 12px; color: var(--muted); }
-.seisan-summary strong { color: var(--deep); font-size: 14px; }
-.seisan-table { width: 100%; }
-.seisan-table th { background: transparent; font-size: 11px; padding: 8px 16px; }
-.seisan-table td { font-size: 13px; padding: 10px 16px; }
-.seisan-table tr:last-child td { border-bottom: none; }
-.seller-section { border-bottom: 1px solid var(--light-border); }
-.seller-section:last-child { border-bottom: none; }
-.seller-name-row td { font-weight: 600; color: var(--deep-rose); font-size: 13px; background: rgba(201,160,144,0.07); padding: 8px 16px; }
+/* 精算書 */
+.seisan-wrap { padding: 20px 24px; }
+.seisan-title-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.seisan-title-row h3 { font-family: 'Noto Serif JP', serif; font-size: 14px; font-weight: 600; color: var(--deep); }
+.seisan-table { width: 100%; border-collapse: collapse; margin-bottom: 14px; border: 1px solid var(--light-border); border-radius: 8px; overflow: hidden; }
+.seisan-table th { background: var(--deep); color: white; font-size: 11px; font-weight: 500; padding: 9px 14px; text-align: left; }
+.seisan-table th.r { text-align: right; }
+.seisan-table td { padding: 10px 14px; font-size: 13px; border-bottom: 1px solid var(--light-border); }
+.seisan-table td.r { text-align: right; font-variant-numeric: tabular-nums; }
+.seisan-table .tfoot-row td { background: var(--blush); font-weight: 600; border-top: 2px solid var(--rose); border-bottom: none; }
+.seisan-table .zero-item td { color: var(--muted); font-style: italic; }
+.seisan-calc { background: white; border: 1px solid var(--light-border); border-radius: 8px; overflow: hidden; }
+.calc-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--light-border); font-size: 13px; }
+.calc-row:last-child { border-bottom: none; }
+.calc-row .label { color: var(--text); }
+.calc-row .sub { font-size: 11px; color: var(--muted); }
+.calc-row .val { font-weight: 600; font-variant-numeric: tabular-nums; }
+.calc-row.final { background: #fff0eb; }
+.calc-row.final .label { color: var(--deep-rose); font-weight: 600; font-size: 14px; }
+.calc-row.final .val { color: var(--deep-rose); font-size: 16px; }
+.carry-badge { display: inline-block; font-size: 10px; background: #fff3e0; color: #a06020; padding: 2px 8px; border-radius: 10px; margin-left: 6px; font-weight: 600; }
 .zero-row td { color: var(--muted); font-style: italic; }
 
 #loading { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; }
@@ -89,6 +98,7 @@ tr:last-child > td { border-bottom: none; }
   .summary-bar { grid-template-columns: 1fr 1fr; }
   .card { padding: 18px 16px; }
   td, th { padding: 9px 8px; font-size: 12px; }
+  .seisan-wrap { padding: 14px 12px; }
 }
 </style>
 </head>
@@ -171,15 +181,111 @@ function logout() {
   document.getElementById('login-screen').style.display = 'flex';
 }
 
+/* ---------- 精算書HTML生成（共通） ---------- */
+function buildSeisanHTML(m, sellerName) {
+  const items  = m.items || [];
+  const tRev   = m.revenue || 0;
+  const tQty   = items.reduce((s,r) => s + (r.qty||0), 0);
+  const rate   = m.rate != null ? m.rate : 0.2;
+  const comm   = m.commission != null ? m.commission : Math.round(tRev * rate);
+  const payout = m.payout != null ? m.payout : (tRev - comm);
+  const tfee   = m.tfee != null ? m.tfee : (payout < 20000 ? 300 : 0);
+  const final  = m.final != null ? m.final : Math.max(0, payout - tfee);
+  const carryovers = m.carryovers || [];
+  const carryTotal = carryovers.reduce((s,c) => s + c.payout, 0);
+  const rateLabel  = Math.round(rate * 100) + '%';
+
+  // 商品明細テーブル
+  const itemRows = items.length
+    ? items.map(r => r.qty === 0
+        ? `<tr class="zero-item"><td>${esc(r.name)}</td><td class="r">¥${(r.price||0).toLocaleString()}</td><td class="r">0</td><td class="r muted">¥0</td></tr>`
+        : `<tr><td>${esc(r.name)}</td><td class="r">¥${(r.price||0).toLocaleString()}</td><td class="r">${r.qty}</td><td class="r amt">¥${(r.revenue||0).toLocaleString()}</td></tr>`
+      ).join('')
+    : `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px">商品データなし</td></tr>`;
+
+  // 集計計算欄
+  const calcRows = [
+    { label: '当月売上合計', sub: '', val: `¥${tRev.toLocaleString()}` },
+    { label: `販売手数料(${rateLabel})`, sub: `${tRev.toLocaleString()} × ${rateLabel}`, val: `¥${comm.toLocaleString()}` },
+    { label: '支払対象額', sub: `${tRev.toLocaleString()} − ${comm.toLocaleString()}`, val: `¥${payout.toLocaleString()}` },
+  ];
+  carryovers.forEach(c => {
+    calcRows.push({ label: `繰越（${c.label}）`, sub: '前月未払い分', val: `¥${c.payout.toLocaleString()}`, carry: true });
+  });
+  if (tfee > 0) {
+    calcRows.push({ label: '振込手数料', sub: '20,000円未満のためご負担', val: `¥${tfee.toLocaleString()}` });
+  } else {
+    calcRows.push({ label: '振込手数料', sub: '当方負担', val: '¥0', zero: true });
+  }
+
+  const calcHTML = calcRows.map(r =>
+    `<div class="calc-row${r.carry?' carry':''}">
+      <div><span class="label">${esc(r.label)}${r.carry?'<span class="carry-badge">繰越</span>':''}</span>${r.sub?`<br><span class="sub">${esc(r.sub)}</span>`:''}</div>
+      <div class="val${r.zero?' muted':''}">${r.val}</div>
+    </div>`
+  ).join('');
+
+  return `
+    <div class="seisan-wrap">
+      <div class="seisan-title-row">
+        <h3>📋 ${esc(m.label)} 月次精算書</h3>
+        ${sellerName ? `<span style="font-size:13px;color:var(--muted)">${esc(sellerName)} 様</span>` : ''}
+      </div>
+      ${items.length ? `
+      <table class="seisan-table">
+        <thead><tr>
+          <th>商品名</th><th class="r">単価(A)</th><th class="r">販売数(B)</th><th class="r">売上金額(C)</th>
+        </tr></thead>
+        <tbody>${itemRows}</tbody>
+        <tfoot><tr class="tfoot-row">
+          <td colspan="2">合計</td>
+          <td class="r">${tQty}</td>
+          <td class="r">¥${tRev.toLocaleString()}</td>
+        </tr></tfoot>
+      </table>` : ''}
+      <div class="seisan-calc">
+        ${calcHTML}
+        <div class="calc-row final">
+          <div class="label">最終振込金額</div>
+          <div class="val">¥${final.toLocaleString()}</div>
+        </div>
+      </div>
+      ${tRev > 0 ? `<p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.8">
+        ・20,000円未満の場合：振込手数料300円をご負担いただきます<br>
+        ・20,000円以上の場合：振込手数料は当方にて負担いたします<br>
+        今月15日までに振込希望の旨と振込先銀行を転写紙協会のLINEにてご連絡ください。
+      </p>` : ''}
+    </div>`;
+}
+
 /* ---------- 販売者ビュー ---------- */
 function showSellerScreen(s) {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('logout-btn').style.display = 'block';
 
-  const months = (s.months || []).slice().sort((a,b) => b.monthId.localeCompare(a.monthId));
-  const totalRev  = months.reduce((sum,m) => sum + m.revenue, 0);
-  const totalPay  = months.reduce((sum,m) => sum + m.payout, 0);
-  const unpaid    = months.filter(m => !m.paid).length;
+  const months  = (s.months || []).slice().sort((a,b) => b.monthId.localeCompare(a.monthId));
+  const totalRev = months.reduce((sum,m) => sum + m.revenue, 0);
+  const totalPay = months.reduce((sum,m) => sum + m.payout, 0);
+  const unpaid   = months.filter(m => !m.paid && m.revenue > 0).length;
+
+  const monthRows = months.map((m, i) => {
+    const detId = 'sv-' + i;
+    const isZero = m.revenue === 0;
+    return `
+      <tr class="clickable-row${isZero?' zero-row':''}" onclick="toggleExpand('${detId}',this)">
+        <td style="font-weight:${isZero?'400':'600'}">${esc(m.label)}<span class="toggle-icon" id="icon-${detId}">▶</span></td>
+        <td style="text-align:right" class="amt ${isZero?'muted':''}">¥${m.revenue.toLocaleString()}</td>
+        <td style="text-align:right" class="amt ${isZero?'muted':''}">¥${m.payout.toLocaleString()}</td>
+        <td style="text-align:center">${isZero
+          ? '<span style="font-size:12px;color:var(--muted)">—</span>'
+          : (m.paid ? '<span class="badge-paid">✓ 精算済み</span>' : '<span class="badge-unpaid">○ 未精算</span>')}</td>
+      </tr>
+      <tr class="expand-row" id="${detId}">
+        <td colspan="4">
+          <div class="expand-inner">${buildSeisanHTML(m, s.name)}</div>
+        </td>
+      </tr>`;
+  }).join('');
 
   const ms = document.getElementById('main-screen');
   ms.style.display = 'block';
@@ -191,7 +297,7 @@ function showSellerScreen(s) {
       <div class="summary-item"><div class="s-label">未精算月</div><div class="s-value unpaid">${unpaid}ヶ月</div></div>
     </div>
     <div class="card">
-      <div class="card-title">📅 月別売上・精算状況</div>
+      <div class="card-title">📅 月別売上・精算状況（月をクリックで明細を表示）</div>
       <table>
         <thead><tr>
           <th>月</th>
@@ -200,14 +306,7 @@ function showSellerScreen(s) {
           <th style="text-align:center">精算状況</th>
         </tr></thead>
         <tbody>
-          ${months.length ? months.map(m => `
-            <tr class="${m.revenue===0?'zero-row':''}">
-              <td style="font-weight:500">${esc(m.label)}</td>
-              <td style="text-align:right" class="amt ${m.revenue===0?'muted':''}">¥${m.revenue.toLocaleString()}</td>
-              <td style="text-align:right" class="amt ${m.revenue===0?'muted':''}">¥${m.payout.toLocaleString()}</td>
-              <td style="text-align:center">${m.revenue===0 ? '<span style="font-size:12px;color:var(--muted)">—</span>' : (m.paid ? '<span class="badge-paid">✓ 精算済み</span>' : '<span class="badge-unpaid">○ 未精算</span>')}</td>
-            </tr>`).join('')
-          : '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:32px">データがありません</td></tr>'}
+          ${months.length ? monthRows : '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:32px">データがありません</td></tr>'}
         </tbody>
       </table>
     </div>
@@ -223,53 +322,45 @@ function showAdminScreen() {
 
   const sellers = viewData.sellers || [];
 
-  // 月→販売者マップ を作成
-  const monthMap = {}; // { monthId: { label, sellers: [{name,revenue,payout,commission,paid}] } }
+  // 月→販売者マップ
+  const monthMap = {};
   sellers.forEach(s => {
     (s.months || []).forEach(m => {
-      if (!monthMap[m.monthId]) monthMap[m.monthId] = { label: m.label, sellers: [] };
-      monthMap[m.monthId].sellers.push({ name: s.name, revenue: m.revenue, payout: m.payout, commission: m.commission||0, paid: m.paid });
+      if (!monthMap[m.monthId]) monthMap[m.monthId] = { label: m.label, items: [] };
+      monthMap[m.monthId].items.push({ name: s.name, ...m });
     });
   });
   const sortedMonths = Object.keys(monthMap).sort((a,b) => b.localeCompare(a));
 
-  // 全体サマリー（¥0除外して集計）
+  // 全体サマリー
   const totalRev  = sellers.reduce((sum,s) => sum + (s.months||[]).reduce((a,m)=>a+m.revenue,0), 0);
   const totalPay  = sellers.reduce((sum,s) => sum + (s.months||[]).reduce((a,m)=>a+m.payout,0), 0);
   const unpaidAll = sellers.reduce((sum,s) => sum + (s.months||[]).filter(m=>!m.paid&&m.revenue>0).length, 0);
 
   const monthRows = sortedMonths.map((mid, i) => {
     const mo = monthMap[mid];
-    const mRev  = mo.sellers.reduce((sum,s)=>sum+s.revenue,0);
-    const mPay  = mo.sellers.reduce((sum,s)=>sum+s.payout,0);
-    const unpaid = mo.sellers.filter(s=>!s.paid&&s.revenue>0).length;
-    const paid   = mo.sellers.filter(s=>s.paid&&s.revenue>0).length;
-    const total  = mo.sellers.filter(s=>s.revenue>0).length;
-    const detId  = 'mo-' + i;
+    const mRev   = mo.items.reduce((sum,s)=>sum+s.revenue,0);
+    const mPay   = mo.items.reduce((sum,s)=>sum+s.payout,0);
+    const unpaid  = mo.items.filter(s=>!s.paid&&s.revenue>0).length;
+    const paidCnt = mo.items.filter(s=>s.paid&&s.revenue>0).length;
+    const total   = mo.items.filter(s=>s.revenue>0).length;
+    const detId   = 'mo-' + i;
 
-    // 精算書ペイン
-    const sellerRows = mo.sellers.map(s => {
+    // 精算書（販売者ごと）
+    const sellerSeisan = mo.items.map(s => {
       if (s.revenue === 0) {
-        return `<tr class="zero-row">
-          <td>${esc(s.name)}</td>
-          <td style="text-align:right;color:var(--muted)">¥0</td>
-          <td style="text-align:right;color:var(--muted)">¥0</td>
-          <td style="text-align:right;color:var(--muted)">¥0</td>
-          <td style="text-align:center"><span style="font-size:12px;color:var(--muted)">—</span></td>
-        </tr>`;
+        return `<div style="padding:12px 24px;border-bottom:1px solid var(--light-border);color:var(--muted);font-size:12px;font-style:italic">
+          ${esc(s.name)}：売上なし（¥0）</div>`;
       }
-      return `<tr>
-        <td style="font-weight:500">${esc(s.name)}</td>
-        <td style="text-align:right" class="amt">¥${s.revenue.toLocaleString()}</td>
-        <td style="text-align:right;color:var(--muted);font-size:12px">¥${s.commission.toLocaleString()}</td>
-        <td style="text-align:right" class="amt" style="color:var(--deep-rose)">¥${s.payout.toLocaleString()}</td>
-        <td style="text-align:center">${s.paid ? '<span class="badge-paid">✓ 精算済み</span>' : '<span class="badge-unpaid">○ 未精算</span>'}</td>
-      </tr>`;
+      return `<div style="border-bottom:2px solid var(--border)">
+        <div style="padding:10px 24px 4px;font-size:12px;font-weight:600;color:var(--deep-rose)">▍${esc(s.name)} 様</div>
+        ${buildSeisanHTML(s, null)}
+      </div>`;
     }).join('');
 
     const statusBadge = total === 0
       ? '<span style="font-size:12px;color:var(--muted)">—</span>'
-      : paid === total
+      : paidCnt === total
         ? '<span class="badge-paid">全員精算済</span>'
         : `<span class="badge-unpaid">${unpaid}名 未精算</span>`;
 
@@ -282,25 +373,7 @@ function showAdminScreen() {
       </tr>
       <tr class="expand-row" id="${detId}">
         <td colspan="4">
-          <div class="expand-inner">
-            <div class="seisan-header">
-              <h3>📋 ${esc(mo.label)} 精算書</h3>
-              <div class="seisan-summary">
-                <span>売上合計 <strong>¥${mRev.toLocaleString()}</strong></span>
-                <span>振込合計 <strong>¥${mPay.toLocaleString()}</strong></span>
-              </div>
-            </div>
-            <table class="seisan-table">
-              <thead><tr>
-                <th>販売者名</th>
-                <th style="text-align:right">売上</th>
-                <th style="text-align:right">手数料</th>
-                <th style="text-align:right">振込額</th>
-                <th style="text-align:center">精算状況</th>
-              </tr></thead>
-              <tbody>${sellerRows}</tbody>
-            </table>
-          </div>
+          <div class="expand-inner">${sellerSeisan}</div>
         </td>
       </tr>`;
   }).join('');

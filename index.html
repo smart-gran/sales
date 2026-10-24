@@ -494,15 +494,28 @@ function exportViewerData() {
       const months = S.records.map(rec => {
         const rows = agg(rec.rows.filter(r => r.sellerId === s.id), rec.id);
         const revenue = rows.reduce((sum,r)=>sum+r.revenue,0);
-        const payout = rows.reduce((sum,r)=>sum+r.payout,0);
         const commission = rows.reduce((sum,r)=>sum+r.commission,0);
+        const payout = rows.reduce((sum,r)=>sum+r.payout,0);
+        const rate = getMonthRate(rec.id);
+        const carryovers = getCarryover(s.id, rec.id);
+        const carryTotal = carryovers.reduce((acc,c)=>acc+c.payout,0);
+        const carryPayout = payout + carryTotal;
+        const tfee = carryPayout < 20000 ? 300 : 0;
+        const final = Math.max(0, carryPayout - tfee);
+        // 商品明細（精算書用）
+        const items = rows.map(r => ({ name: r.name, price: r.price, qty: r.qty, revenue: r.revenue }));
         return {
           monthId: rec.id,
           label: rec.label,
           revenue,
           commission,
           payout,
-          paid: isPaid(rec.id, s.id)
+          paid: isPaid(rec.id, s.id),
+          rate,
+          tfee,
+          final: revenue > 0 || carryovers.length > 0 ? final : 0,
+          carryovers: carryovers.map(c => ({ label: c.label, payout: c.payout })),
+          items
         };
       }).filter(Boolean);
       return {
