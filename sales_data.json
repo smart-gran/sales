@@ -1,0 +1,888 @@
+{
+  "generatedAt": "2026-10-24T01:24:36.951Z",
+  "admin": {
+    "loginId": "admin-CSGD",
+    "loginPw": "RSgn9Y7p"
+  },
+  "sellers": [
+    {
+      "loginId": "Lavique-FY3KZT",
+      "loginPw": "YmM5xKwH",
+      "name": "飯田明美",
+      "months": [
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 9240,
+          "commission": 1848,
+          "payout": 7392,
+          "paid": false
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 7000,
+          "commission": 1400,
+          "payout": 5600,
+          "paid": false
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 94500,
+          "commission": 18900,
+          "payout": 75600,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-MTZUOR",
+      "loginPw": "j9Mbrw5u",
+      "name": "寺嶋未央",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 70500,
+          "commission": 0,
+          "payout": 70500,
+          "paid": true
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 6000,
+          "commission": 1200,
+          "payout": 4800,
+          "paid": true
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 2000,
+          "commission": 400,
+          "payout": 1600,
+          "paid": true
+        },
+        {
+          "monthId": "1777600399446",
+          "label": "2026年4月",
+          "revenue": 4000,
+          "commission": 800,
+          "payout": 3200,
+          "paid": true
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 10000,
+          "commission": 2000,
+          "payout": 8000,
+          "paid": true
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 10000,
+          "commission": 2000,
+          "payout": 8000,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-5H9HKW",
+      "loginPw": "GYXsbWWQ",
+      "name": "中村直子",
+      "months": [
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 3020,
+          "commission": 604,
+          "payout": 2416,
+          "paid": false
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 152310,
+          "commission": 0,
+          "payout": 152310,
+          "paid": true
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 7700,
+          "commission": 1540,
+          "payout": 6160,
+          "paid": true
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 15280,
+          "commission": 3056,
+          "payout": 12224,
+          "paid": true
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 6100,
+          "commission": 1220,
+          "payout": 4880,
+          "paid": true
+        },
+        {
+          "monthId": "1777600399446",
+          "label": "2026年4月",
+          "revenue": 6100,
+          "commission": 1220,
+          "payout": 4880,
+          "paid": true
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 3080,
+          "commission": 616,
+          "payout": 2464,
+          "paid": true
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 12320,
+          "commission": 2464,
+          "payout": 9856,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-R3APE9",
+      "loginPw": "JHT5Am7d",
+      "name": "河崎　友美",
+      "months": [
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 1540,
+          "commission": 308,
+          "payout": 1232,
+          "paid": false
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 51390,
+          "commission": 0,
+          "payout": 51390,
+          "paid": false
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 8520,
+          "commission": 1704,
+          "payout": 6816,
+          "paid": false
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 3080,
+          "commission": 616,
+          "payout": 2464,
+          "paid": false
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 1540,
+          "commission": 308,
+          "payout": 1232,
+          "paid": false
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 1540,
+          "commission": 308,
+          "payout": 1232,
+          "paid": false
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 4620,
+          "commission": 924,
+          "payout": 3696,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-XDPBH0",
+      "loginPw": "88sAHGCQ",
+      "name": "平賀千晴",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 128885,
+          "commission": 0,
+          "payout": 128885,
+          "paid": false
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 1690,
+          "commission": 338,
+          "payout": 1352,
+          "paid": false
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 5070,
+          "commission": 1014,
+          "payout": 4056,
+          "paid": false
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 7660,
+          "commission": 1532,
+          "payout": 6128,
+          "paid": false
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 5600,
+          "commission": 1120,
+          "payout": 4480,
+          "paid": false
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 8400,
+          "commission": 1680,
+          "payout": 6720,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-JP324T",
+      "loginPw": "D6cZ3Pyc",
+      "name": "小鹿倉　美香",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 53020,
+          "commission": 0,
+          "payout": 53020,
+          "paid": true
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 2830,
+          "commission": 566,
+          "payout": 2264,
+          "paid": true
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 1350,
+          "commission": 270,
+          "payout": 1080,
+          "paid": true
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 4080,
+          "commission": 816,
+          "payout": 3264,
+          "paid": true
+        },
+        {
+          "monthId": "1777600399446",
+          "label": "2026年4月",
+          "revenue": 4080,
+          "commission": 816,
+          "payout": 3264,
+          "paid": true
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 5400,
+          "commission": 1080,
+          "payout": 4320,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-65JEMP",
+      "loginPw": "p3fyC4BJ",
+      "name": "山下紗栄子",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 6100,
+          "commission": 0,
+          "payout": 6100,
+          "paid": false
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 12000,
+          "commission": 2400,
+          "payout": 9600,
+          "paid": false
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 2000,
+          "commission": 400,
+          "payout": 1600,
+          "paid": false
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 6200,
+          "commission": 1240,
+          "payout": 4960,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-EQV8XO",
+      "loginPw": "7ddhEPMY",
+      "name": "神山桃子",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 34625,
+          "commission": 0,
+          "payout": 34625,
+          "paid": true
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 2900,
+          "commission": 580,
+          "payout": 2320,
+          "paid": true
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 1450,
+          "commission": 290,
+          "payout": 1160,
+          "paid": true
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 3080,
+          "commission": 616,
+          "payout": 2464,
+          "paid": true
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 1540,
+          "commission": 308,
+          "payout": 1232,
+          "paid": true
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 2990,
+          "commission": 598,
+          "payout": 2392,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-8PGHJZ",
+      "loginPw": "r7jDmLNt",
+      "name": "平山春佳",
+      "months": [
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 4290,
+          "commission": 858,
+          "payout": 3432,
+          "paid": false
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 85140,
+          "commission": 0,
+          "payout": 85140,
+          "paid": true
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 2750,
+          "commission": 550,
+          "payout": 2200,
+          "paid": true
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 18040,
+          "commission": 3608,
+          "payout": 14432,
+          "paid": true
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 9790,
+          "commission": 1958,
+          "payout": 7832,
+          "paid": true
+        },
+        {
+          "monthId": "1777600399446",
+          "label": "2026年4月",
+          "revenue": 8580,
+          "commission": 1716,
+          "payout": 6864,
+          "paid": true
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 18370,
+          "commission": 3674,
+          "payout": 14696,
+          "paid": true
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 1540,
+          "commission": 308,
+          "payout": 1232,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-LPE1ES",
+      "loginPw": "m5SVYHmA",
+      "name": "後藤愛",
+      "months": [
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 124940,
+          "commission": 24988,
+          "payout": 99952,
+          "paid": false
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 130240,
+          "commission": 26048,
+          "payout": 104192,
+          "paid": false
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 76940,
+          "commission": 15388,
+          "payout": 61552,
+          "paid": false
+        },
+        {
+          "monthId": "1777600399446",
+          "label": "2026年4月",
+          "revenue": 3080,
+          "commission": 616,
+          "payout": 2464,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-858CLC",
+      "loginPw": "Zxf3gNEt",
+      "name": "赤間桂子",
+      "months": [
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 3080,
+          "commission": 616,
+          "payout": 2464,
+          "paid": false
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 66290,
+          "commission": 0,
+          "payout": 66290,
+          "paid": true
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 5960,
+          "commission": 1192,
+          "payout": 4768,
+          "paid": true
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 2980,
+          "commission": 596,
+          "payout": 2384,
+          "paid": true
+        },
+        {
+          "monthId": "1777600399446",
+          "label": "2026年4月",
+          "revenue": 2980,
+          "commission": 596,
+          "payout": 2384,
+          "paid": true
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 2980,
+          "commission": 596,
+          "payout": 2384,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-J3YBX7",
+      "loginPw": "JKE3xJ7t",
+      "name": "土岡　美和",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 9240,
+          "commission": 0,
+          "payout": 9240,
+          "paid": false
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 1540,
+          "commission": 308,
+          "payout": 1232,
+          "paid": false
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 4620,
+          "commission": 924,
+          "payout": 3696,
+          "paid": false
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 1540,
+          "commission": 308,
+          "payout": 1232,
+          "paid": false
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 1540,
+          "commission": 308,
+          "payout": 1232,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-J2DDD2",
+      "loginPw": "qsjRsqTa",
+      "name": "今野洋子",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 53800,
+          "commission": 0,
+          "payout": 53800,
+          "paid": true
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 8000,
+          "commission": 1600,
+          "payout": 6400,
+          "paid": true
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 1200,
+          "commission": 240,
+          "payout": 960,
+          "paid": true
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 6600,
+          "commission": 1320,
+          "payout": 5280,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-EBITHC",
+      "loginPw": "WpDVytVA",
+      "name": "宮内明代",
+      "months": [
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 2960,
+          "commission": 592,
+          "payout": 2368,
+          "paid": false
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 74740,
+          "commission": 0,
+          "payout": 74740,
+          "paid": true
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 5920,
+          "commission": 1184,
+          "payout": 4736,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-8F57Y2",
+      "loginPw": "TMFCLh3p",
+      "name": "Snow Rabbit ゆはらゆき",
+      "months": [
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 3080,
+          "commission": 616,
+          "payout": 2464,
+          "paid": false
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 44660,
+          "commission": 0,
+          "payout": 44660,
+          "paid": true
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 1540,
+          "commission": 308,
+          "payout": 1232,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-QA9UKA",
+      "loginPw": "UdWCeNsJ",
+      "name": "富田有香里",
+      "months": []
+    },
+    {
+      "loginId": "Lavique-S237VJ",
+      "loginPw": "eHXS9SyA",
+      "name": "山脇　智鶴",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 39750,
+          "commission": 0,
+          "payout": 39750,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-N8R2RY",
+      "loginPw": "gZHBnMUC",
+      "name": "石川 葵",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 17500,
+          "commission": 0,
+          "payout": 17500,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-V4W9DU",
+      "loginPw": "kkRvmckM",
+      "name": "小野　ひろみ",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 26580,
+          "commission": 0,
+          "payout": 26580,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-KXVIPC",
+      "loginPw": "eTGev7TM",
+      "name": "薄井晴香",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 27200,
+          "commission": 0,
+          "payout": 27200,
+          "paid": true
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-EMBC77",
+      "loginPw": "xB2zynR8",
+      "name": "田中里奈",
+      "months": [
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 4620,
+          "commission": 924,
+          "payout": 3696,
+          "paid": false
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 15400,
+          "commission": 0,
+          "payout": 15400,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-X6KBJI",
+      "loginPw": "K6pxxRG9",
+      "name": "武田志織",
+      "months": [
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 12320,
+          "commission": 2464,
+          "payout": 9856,
+          "paid": false
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 15400,
+          "commission": 0,
+          "payout": 15400,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-VRDYDB",
+      "loginPw": "ZbzdwPj7",
+      "name": "薦田有香",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 44830,
+          "commission": 0,
+          "payout": 44830,
+          "paid": false
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-NGQMGO",
+      "loginPw": "gJh2RMgR",
+      "name": "中川里佳",
+      "months": [
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 9900,
+          "commission": 0,
+          "payout": 9900,
+          "paid": false
+        }
+      ]
+    }
+  ]
+}
