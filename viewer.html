@@ -201,9 +201,9 @@ function buildSeisanHTML(m, sellerName, showHeader) {
   const items      = m.items || [];
   const tRev       = m.revenue || 0;
   const tQty       = items.reduce((s,r) => s + (r.qty||0), 0);
-  const rate       = m.rate != null ? m.rate : 0.2;
-  const comm       = m.commission != null ? m.commission : Math.round(tRev * rate);
-  const payout     = m.payout != null ? m.payout : (tRev - comm);
+  const rate       = (m.rate != null && m.rate > 0) ? m.rate : 0.2;
+  const comm       = Math.round(tRev * rate);   // 常に再計算（exportedの値に依存しない）
+  const payout     = tRev - comm;
   const carryovers = m.carryovers || [];
   const carryTotal = carryovers.reduce((s,c) => s + c.payout, 0);
   const carryPayout= payout + carryTotal;
