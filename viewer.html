@@ -66,27 +66,41 @@ tr:last-child > td { border-bottom: none; }
 .expand-row > td { padding: 0; }
 .expand-inner { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
-/* 精算書 */
-.seisan-wrap { padding: 20px 24px; }
-.seisan-title-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-.seisan-title-row h3 { font-family: 'Noto Serif JP', serif; font-size: 14px; font-weight: 600; color: var(--deep); }
-.seisan-table { width: 100%; border-collapse: collapse; margin-bottom: 14px; border: 1px solid var(--light-border); border-radius: 8px; overflow: hidden; }
-.seisan-table th { background: var(--deep); color: white; font-size: 11px; font-weight: 500; padding: 9px 14px; text-align: left; }
-.seisan-table th.r { text-align: right; }
-.seisan-table td { padding: 10px 14px; font-size: 13px; border-bottom: 1px solid var(--light-border); }
-.seisan-table td.r { text-align: right; font-variant-numeric: tabular-nums; }
-.seisan-table .tfoot-row td { background: var(--blush); font-weight: 600; border-top: 2px solid var(--rose); border-bottom: none; }
-.seisan-table .zero-item td { color: var(--muted); font-style: italic; }
-.seisan-calc { background: white; border: 1px solid var(--light-border); border-radius: 8px; overflow: hidden; }
-.calc-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--light-border); font-size: 13px; }
-.calc-row:last-child { border-bottom: none; }
-.calc-row .label { color: var(--text); }
-.calc-row .sub { font-size: 11px; color: var(--muted); }
-.calc-row .val { font-weight: 600; font-variant-numeric: tabular-nums; }
-.calc-row.final { background: #fff0eb; }
-.calc-row.final .label { color: var(--deep-rose); font-weight: 600; font-size: 14px; }
-.calc-row.final .val { color: var(--deep-rose); font-size: 16px; }
-.carry-badge { display: inline-block; font-size: 10px; background: #fff3e0; color: #a06020; padding: 2px 8px; border-radius: 10px; margin-left: 6px; font-weight: 600; }
+/* 精算書ドキュメント */
+.seisan-doc { padding: 28px 28px 20px; background: white; }
+.seisan-doc-title { font-size: 17px; font-weight: 700; text-align: center; color: var(--deep); margin-bottom: 12px; letter-spacing: 0.04em; }
+.seisan-doc-divider { border: none; border-top: 2px solid var(--rose); margin-bottom: 16px; }
+.seisan-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; gap: 12px; }
+.seisan-recipient { font-size: 16px; font-weight: 700; color: var(--deep); }
+.seisan-issuer { text-align: right; font-size: 12px; color: var(--muted); line-height: 2; }
+.seisan-period { border: 1px solid var(--light-border); border-radius: 8px; padding: 10px 16px; margin-bottom: 18px; font-size: 13px; color: var(--deep); }
+.seisan-period strong { color: var(--deep-rose); margin-right: 8px; font-size: 12px; }
+/* 商品テーブル */
+.sp-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+.sp-table thead th { background: var(--deep); color: white; font-size: 12px; font-weight: 500; padding: 10px 14px; text-align: left; }
+.sp-table thead th.r { text-align: right; }
+.sp-table tbody td { padding: 11px 14px; border-bottom: 1px solid var(--light-border); font-size: 13px; }
+.sp-table tbody td.r { text-align: right; font-variant-numeric: tabular-nums; }
+.sp-table tfoot td { padding: 11px 14px; background: var(--blush); font-weight: 700; font-size: 13px; border-top: 2px solid var(--rose); }
+.sp-table tfoot td.r { text-align: right; font-variant-numeric: tabular-nums; }
+.sp-table .zero-item td { color: var(--muted); font-style: italic; }
+/* 計算欄 */
+.sp-calc { border: 1px solid var(--light-border); border-radius: 0; overflow: hidden; margin-bottom: 14px; }
+.sp-calc-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 16px; border-bottom: 1px solid var(--light-border); font-size: 13px; gap: 12px; }
+.sp-calc-row:last-child { border-bottom: none; }
+.sp-calc-row .lbl { color: var(--text); flex-shrink: 0; }
+.sp-calc-row .sub { font-size: 11px; color: var(--muted); flex: 1; text-align: center; }
+.sp-calc-row .val { font-weight: 600; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.sp-calc-row.final-row { background: #fff0eb; padding: 13px 16px; }
+.sp-calc-row.final-row .lbl { color: var(--deep-rose); font-weight: 700; font-size: 14px; }
+.sp-calc-row.final-row .val { color: var(--deep-rose); font-size: 17px; }
+.sp-calc-row .val.muted { color: var(--muted); font-weight: 400; }
+.carry-tag { font-size: 10px; background: #fff3e0; color: #a06020; padding: 1px 6px; border-radius: 8px; margin-left: 6px; font-weight: 600; }
+/* フッター注記 */
+.sp-notes { font-size: 11px; color: var(--muted); line-height: 2; margin-top: 12px; }
+.sp-date { text-align: right; font-size: 11px; color: var(--muted); margin-top: 10px; }
+/* 管理者ビュー：販売者ヘッダー */
+.seller-section-header { padding: 10px 28px 4px; font-size: 12px; font-weight: 700; color: var(--deep-rose); border-bottom: 1px solid var(--light-border); background: rgba(201,160,144,0.06); }
 .zero-row td { color: var(--muted); font-style: italic; }
 
 #loading { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; }
@@ -182,79 +196,92 @@ function logout() {
 }
 
 /* ---------- 精算書HTML生成（共通） ---------- */
-function buildSeisanHTML(m, sellerName) {
-  const items  = m.items || [];
-  const tRev   = m.revenue || 0;
-  const tQty   = items.reduce((s,r) => s + (r.qty||0), 0);
-  const rate   = m.rate != null ? m.rate : 0.2;
-  const comm   = m.commission != null ? m.commission : Math.round(tRev * rate);
-  const payout = m.payout != null ? m.payout : (tRev - comm);
-  const tfee   = m.tfee != null ? m.tfee : (payout < 20000 ? 300 : 0);
-  const final  = m.final != null ? m.final : Math.max(0, payout - tfee);
+// sellerName: 販売者名（文字列）/ showHeader: ドキュメントヘッダーを表示するか
+function buildSeisanHTML(m, sellerName, showHeader) {
+  const items      = m.items || [];
+  const tRev       = m.revenue || 0;
+  const tQty       = items.reduce((s,r) => s + (r.qty||0), 0);
+  const rate       = m.rate != null ? m.rate : 0.2;
+  const comm       = m.commission != null ? m.commission : Math.round(tRev * rate);
+  const payout     = m.payout != null ? m.payout : (tRev - comm);
   const carryovers = m.carryovers || [];
   const carryTotal = carryovers.reduce((s,c) => s + c.payout, 0);
+  const carryPayout= payout + carryTotal;
+  const tfee       = m.tfee != null ? m.tfee : (carryPayout < 20000 ? 300 : 0);
+  const final      = m.final != null ? m.final : Math.max(0, carryPayout - tfee);
   const rateLabel  = Math.round(rate * 100) + '%';
+  const today      = new Date().toLocaleDateString('ja-JP', {year:'numeric', month:'long', day:'numeric'});
 
-  // 商品明細テーブル
+  // 商品明細
   const itemRows = items.length
     ? items.map(r => r.qty === 0
-        ? `<tr class="zero-item"><td>${esc(r.name)}</td><td class="r">¥${(r.price||0).toLocaleString()}</td><td class="r">0</td><td class="r muted">¥0</td></tr>`
-        : `<tr><td>${esc(r.name)}</td><td class="r">¥${(r.price||0).toLocaleString()}</td><td class="r">${r.qty}</td><td class="r amt">¥${(r.revenue||0).toLocaleString()}</td></tr>`
+        ? `<tr class="zero-item"><td>${esc(r.name)}</td><td class="r">¥${(r.price||0).toLocaleString()}</td><td class="r">0</td><td class="r">¥0</td></tr>`
+        : `<tr><td>${esc(r.name)}</td><td class="r">¥${(r.price||0).toLocaleString()}</td><td class="r">${r.qty}</td><td class="r" style="font-weight:600">¥${(r.revenue||0).toLocaleString()}</td></tr>`
       ).join('')
-    : `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px">商品データなし</td></tr>`;
+    : `<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:16px;font-size:12px">商品データなし（管理者にご確認ください）</td></tr>`;
 
-  // 集計計算欄
-  const calcRows = [
-    { label: '当月売上合計', sub: '', val: `¥${tRev.toLocaleString()}` },
-    { label: `販売手数料(${rateLabel})`, sub: `${tRev.toLocaleString()} × ${rateLabel}`, val: `¥${comm.toLocaleString()}` },
-    { label: '支払対象額', sub: `${tRev.toLocaleString()} − ${comm.toLocaleString()}`, val: `¥${payout.toLocaleString()}` },
-  ];
+  // 計算欄
+  const calcRows = [];
+  calcRows.push({ lbl:'当月売上合計', sub:'', val:`¥${tRev.toLocaleString()}` });
+  calcRows.push({ lbl:`販売手数料(${rateLabel})`, sub:`${tRev.toLocaleString()} × ${rateLabel}`, val:`¥${comm.toLocaleString()}` });
+  calcRows.push({ lbl:'支払対象額', sub:`${tRev.toLocaleString()} − ${comm.toLocaleString()}`, val:`¥${payout.toLocaleString()}` });
   carryovers.forEach(c => {
-    calcRows.push({ label: `繰越（${c.label}）`, sub: '前月未払い分', val: `¥${c.payout.toLocaleString()}`, carry: true });
+    calcRows.push({ lbl:`繰越（${c.label}）`, sub:'前月未払い分', val:`¥${c.payout.toLocaleString()}`, carry:true });
   });
   if (tfee > 0) {
-    calcRows.push({ label: '振込手数料', sub: '20,000円未満のためご負担', val: `¥${tfee.toLocaleString()}` });
+    calcRows.push({ lbl:'振込手数料', sub:'20,000円未満のためご負担', val:`¥${tfee.toLocaleString()}` });
   } else {
-    calcRows.push({ label: '振込手数料', sub: '当方負担', val: '¥0', zero: true });
+    calcRows.push({ lbl:'振込手数料', sub:'当方負担', val:'¥0', zero:true });
   }
-
   const calcHTML = calcRows.map(r =>
-    `<div class="calc-row${r.carry?' carry':''}">
-      <div><span class="label">${esc(r.label)}${r.carry?'<span class="carry-badge">繰越</span>':''}</span>${r.sub?`<br><span class="sub">${esc(r.sub)}</span>`:''}</div>
-      <div class="val${r.zero?' muted':''}">${r.val}</div>
+    `<div class="sp-calc-row">
+      <span class="lbl">${esc(r.lbl)}${r.carry?'<span class="carry-tag">繰越</span>':''}</span>
+      <span class="sub">${esc(r.sub||'')}</span>
+      <span class="val${r.zero?' muted':''}">${r.val}</span>
     </div>`
   ).join('');
 
+  const noteHtml = tRev > 0 ? `
+    <div class="sp-notes">
+      当月分の精算金額は上記の通りとなります。<br>
+      ・20,000円未満の場合：振込手数料300円をご負担いただきます<br>
+      ・20,000円以上の場合：振込手数料は当方にて負担いたします<br><br>
+      今月15日までに振込希望の旨と振込先銀行を転写紙協会のLINEにてご連絡ください。
+    </div>
+    <div class="sp-date">発行日：${today}</div>` : '';
+
+  const headerHtml = showHeader ? `
+    <div class="seisan-doc-title">Lavique ECショップ　委託販売 月次精算書</div>
+    <hr class="seisan-doc-divider">
+    <div class="seisan-meta">
+      <div class="seisan-recipient">${esc(sellerName||'')}　様</div>
+      <div class="seisan-issuer">Lavique・後藤あい<br>広島県福山市南蔵王町2丁目3-35<br>TEL: 080-3894-4100</div>
+    </div>
+    <div class="seisan-period"><strong>精算対象期間：</strong>${esc(m.label)}</div>` : '';
+
   return `
-    <div class="seisan-wrap">
-      <div class="seisan-title-row">
-        <h3>📋 ${esc(m.label)} 月次精算書</h3>
-        ${sellerName ? `<span style="font-size:13px;color:var(--muted)">${esc(sellerName)} 様</span>` : ''}
-      </div>
-      ${items.length ? `
-      <table class="seisan-table">
+    <div class="seisan-doc">
+      ${headerHtml}
+      <table class="sp-table">
         <thead><tr>
           <th>商品名</th><th class="r">単価(A)</th><th class="r">販売数(B)</th><th class="r">売上金額(C)</th>
         </tr></thead>
         <tbody>${itemRows}</tbody>
-        <tfoot><tr class="tfoot-row">
-          <td colspan="2">合計</td>
+        <tfoot><tr>
+          <td colspan="2" style="font-weight:700">合計</td>
           <td class="r">${tQty}</td>
           <td class="r">¥${tRev.toLocaleString()}</td>
         </tr></tfoot>
-      </table>` : ''}
-      <div class="seisan-calc">
+      </table>
+      <div class="sp-calc">
         ${calcHTML}
-        <div class="calc-row final">
-          <div class="label">最終振込金額</div>
-          <div class="val">¥${final.toLocaleString()}</div>
+        <div class="sp-calc-row final-row">
+          <span class="lbl">最終振込金額</span>
+          <span class="sub"></span>
+          <span class="val">¥${final.toLocaleString()}</span>
         </div>
       </div>
-      ${tRev > 0 ? `<p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.8">
-        ・20,000円未満の場合：振込手数料300円をご負担いただきます<br>
-        ・20,000円以上の場合：振込手数料は当方にて負担いたします<br>
-        今月15日までに振込希望の旨と振込先銀行を転写紙協会のLINEにてご連絡ください。
-      </p>` : ''}
+      ${noteHtml}
     </div>`;
 }
 
@@ -282,7 +309,7 @@ function showSellerScreen(s) {
       </tr>
       <tr class="expand-row" id="${detId}">
         <td colspan="4">
-          <div class="expand-inner">${buildSeisanHTML(m, s.name)}</div>
+          <div class="expand-inner">${buildSeisanHTML(m, s.name, true)}</div>
         </td>
       </tr>`;
   }).join('');
@@ -353,8 +380,7 @@ function showAdminScreen() {
           ${esc(s.name)}：売上なし（¥0）</div>`;
       }
       return `<div style="border-bottom:2px solid var(--border)">
-        <div style="padding:10px 24px 4px;font-size:12px;font-weight:600;color:var(--deep-rose)">▍${esc(s.name)} 様</div>
-        ${buildSeisanHTML(s, null)}
+        ${buildSeisanHTML(s, s.name, true)}
       </div>`;
     }).join('');
 
