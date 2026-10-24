@@ -16,12 +16,12 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Noto Sans JP', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
 
-/* ヘッダー */
 .app-header { background: var(--deep); color: white; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 16px rgba(0,0,0,0.2); }
-.app-header h1 { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 500; letter-spacing: 0.05em; }
-.app-header .subtitle { font-size: 11px; color: var(--blush); margin-top: 2px; letter-spacing: 0.08em; }
+.header-title { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 500; letter-spacing: 0.05em; }
+.header-sub { font-size: 11px; color: var(--blush); margin-top: 2px; letter-spacing: 0.08em; }
+.admin-badge { font-size: 11px; background: var(--deep-rose); color: white; padding: 3px 10px; border-radius: 12px; font-weight: 600; display: none; }
 
-/* ログイン画面 */
+/* ログイン */
 #login-screen { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 70px); padding: 32px 20px; }
 .login-card { background: white; border-radius: 16px; box-shadow: var(--shadow-lg); padding: 40px 36px; width: 100%; max-width: 400px; }
 .login-card h2 { font-family: 'Noto Serif JP', serif; font-size: 17px; font-weight: 500; color: var(--deep); margin-bottom: 28px; text-align: center; }
@@ -33,32 +33,41 @@ body { font-family: 'Noto Sans JP', sans-serif; background: var(--cream); color:
 .btn-login:hover { background: var(--mauve); transform: translateY(-1px); }
 .login-err { color: #c05050; font-size: 13px; text-align: center; margin-top: 12px; display: none; }
 
-/* メイン画面 */
-#main-screen { display: none; padding: 28px 24px; max-width: 800px; margin: 0 auto; }
+/* メイン共通 */
+#main-screen { display: none; padding: 28px 24px; max-width: 900px; margin: 0 auto; }
 .welcome { font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 500; color: var(--deep); margin-bottom: 24px; }
 .welcome span { color: var(--deep-rose); }
 
-/* サマリーバー */
 .summary-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
 .summary-item { background: white; border-radius: 12px; border: 1px solid var(--light-border); box-shadow: var(--shadow); padding: 16px 20px; text-align: center; }
-.summary-item .label { font-size: 11px; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
-.summary-item .value { font-size: 20px; font-weight: 600; color: var(--deep); font-family: 'Noto Serif JP', serif; }
-.summary-item .value.unpaid { color: var(--warning); }
+.summary-item .s-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
+.summary-item .s-value { font-size: 20px; font-weight: 600; color: var(--deep); font-family: 'Noto Serif JP', serif; }
+.summary-item .s-value.unpaid { color: var(--warning); }
 
-/* 月別テーブル */
-.card { background: white; border-radius: 12px; border: 1px solid var(--light-border); box-shadow: var(--shadow); padding: 24px 28px; }
+.card { background: white; border-radius: 12px; border: 1px solid var(--light-border); box-shadow: var(--shadow); padding: 24px 28px; margin-bottom: 20px; }
 .card-title { font-family: 'Noto Serif JP', serif; font-size: 15px; font-weight: 500; color: var(--deep); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--light-border); }
 table { width: 100%; border-collapse: collapse; }
 th { font-size: 11px; font-weight: 600; color: var(--muted); text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--light-border); text-transform: uppercase; letter-spacing: 0.05em; }
-td { padding: 14px 12px; border-bottom: 1px solid var(--light-border); font-size: 14px; }
+td { padding: 13px 12px; border-bottom: 1px solid var(--light-border); font-size: 14px; }
 tr:last-child td { border-bottom: none; }
 .badge-paid { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; background: #e8f5ee; color: #3a8a5a; }
 .badge-unpaid { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; background: #fff6e0; color: #a07010; }
-.amount { font-weight: 600; font-size: 15px; }
+.amount { font-weight: 600; }
 .logout-btn { background: none; border: 1px solid var(--blush); color: var(--muted); padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 12px; font-family: 'Noto Sans JP', sans-serif; }
 .logout-btn:hover { background: var(--blush); color: var(--deep); }
 
-/* ローディング */
+/* 管理者ビュー */
+.seller-row { cursor: pointer; transition: background 0.15s; }
+.seller-row:hover td { background: var(--cream); }
+.seller-row td:first-child { font-weight: 600; color: var(--deep-rose); }
+.detail-row { display: none; }
+.detail-row td { padding: 0; }
+.detail-inner { background: var(--cream); border-top: 1px solid var(--light-border); }
+.detail-inner table { background: transparent; }
+.detail-inner th { background: transparent; font-size: 10px; }
+.detail-inner td { font-size: 13px; padding: 9px 14px; }
+.toggle-icon { float: right; color: var(--muted); font-size: 12px; }
+
 #loading { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; }
 #error-msg { text-align: center; padding: 60px 20px; color: #c05050; font-size: 14px; display: none; }
 
@@ -67,7 +76,7 @@ tr:last-child td { border-bottom: none; }
   .login-card { padding: 28px 20px; }
   #main-screen { padding: 20px 16px; }
   .summary-bar { grid-template-columns: 1fr 1fr; }
-  td, th { padding: 10px 8px; font-size: 13px; }
+  td, th { padding: 9px 8px; font-size: 12px; }
 }
 </style>
 </head>
@@ -75,16 +84,18 @@ tr:last-child td { border-bottom: none; }
 
 <div class="app-header">
   <div>
-    <div class="app-header h1" style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:500;letter-spacing:0.05em">Lavique 委託販売</div>
-    <div style="font-size:11px;color:var(--blush);margin-top:2px;letter-spacing:0.08em">売上確認ページ</div>
+    <div class="header-title">Lavique 委託販売</div>
+    <div class="header-sub">売上確認ページ</div>
   </div>
-  <button class="logout-btn" id="logout-btn" style="display:none" onclick="logout()">ログアウト</button>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="admin-badge" id="admin-badge">管理者</span>
+    <button class="logout-btn" id="logout-btn" style="display:none" onclick="logout()">ログアウト</button>
+  </div>
 </div>
 
 <div id="loading">データを読み込んでいます…</div>
 <div id="error-msg">データの読み込みに失敗しました。<br>管理者にお問い合わせください。</div>
 
-<!-- ログイン画面 -->
 <div id="login-screen" style="display:none">
   <div class="login-card">
     <h2>🔑 ログイン</h2>
@@ -101,48 +112,11 @@ tr:last-child td { border-bottom: none; }
   </div>
 </div>
 
-<!-- メイン画面 -->
-<div id="main-screen">
-  <div class="welcome">こんにちは、<span id="seller-name-disp"></span>さん</div>
-
-  <div class="summary-bar">
-    <div class="summary-item">
-      <div class="label">累計売上</div>
-      <div class="value" id="total-revenue">¥0</div>
-    </div>
-    <div class="summary-item">
-      <div class="label">累計振込額</div>
-      <div class="value" id="total-payout">¥0</div>
-    </div>
-    <div class="summary-item">
-      <div class="label">未精算月</div>
-      <div class="value unpaid" id="unpaid-count">0ヶ月</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">📅 月別売上・精算状況</div>
-    <table>
-      <thead>
-        <tr>
-          <th>月</th>
-          <th style="text-align:right">売上</th>
-          <th style="text-align:right">振込額</th>
-          <th style="text-align:center">精算状況</th>
-        </tr>
-      </thead>
-      <tbody id="months-tbody"></tbody>
-    </table>
-  </div>
-
-  <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:20px">
-    データ更新日時：<span id="generated-at"></span>
-  </p>
-</div>
+<div id="main-screen"></div>
 
 <script>
 let viewData = null;
-let currentSeller = null;
+let isAdmin = false;
 
 async function loadData() {
   try {
@@ -162,68 +136,153 @@ function doLogin() {
   const pw = document.getElementById('login-pw').value;
   const err = document.getElementById('login-err');
   if (!viewData) return;
+
+  // 管理者チェック
+  if (viewData.admin && id === viewData.admin.loginId && pw === viewData.admin.loginPw) {
+    err.style.display = 'none';
+    isAdmin = true;
+    showAdminScreen();
+    return;
+  }
+
+  // 販売者チェック
   const seller = viewData.sellers.find(s => s.loginId === id && s.loginPw === pw);
   if (!seller) {
     err.style.display = 'block';
     return;
   }
   err.style.display = 'none';
-  currentSeller = seller;
-  showMainScreen();
+  isAdmin = false;
+  showSellerScreen(seller);
 }
 
-function showMainScreen() {
-  const s = currentSeller;
+// ===== 販売者ビュー =====
+function showSellerScreen(s) {
   document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('main-screen').style.display = 'block';
   document.getElementById('logout-btn').style.display = 'block';
-  document.getElementById('seller-name-disp').textContent = s.name;
+  document.getElementById('admin-badge').style.display = 'none';
 
   const months = (s.months || []).slice().sort((a,b) => b.monthId.localeCompare(a.monthId));
-
-  // サマリー計算
   const totalRevenue = months.reduce((sum,m) => sum + m.revenue, 0);
-  const totalPayout = months.reduce((sum,m) => sum + m.payout, 0);
-  const unpaidCount = months.filter(m => !m.paid).length;
+  const totalPayout  = months.reduce((sum,m) => sum + m.payout, 0);
+  const unpaidCount  = months.filter(m => !m.paid).length;
 
-  document.getElementById('total-revenue').textContent = '¥' + totalRevenue.toLocaleString();
-  document.getElementById('total-payout').textContent = '¥' + totalPayout.toLocaleString();
-  document.getElementById('unpaid-count').textContent = unpaidCount + 'ヶ月';
+  const ms = document.getElementById('main-screen');
+  ms.style.display = 'block';
+  ms.innerHTML = `
+    <div class="welcome">こんにちは、<span>${s.name}</span>さん</div>
+    <div class="summary-bar">
+      <div class="summary-item"><div class="s-label">累計売上</div><div class="s-value">¥${totalRevenue.toLocaleString()}</div></div>
+      <div class="summary-item"><div class="s-label">累計振込額</div><div class="s-value">¥${totalPayout.toLocaleString()}</div></div>
+      <div class="summary-item"><div class="s-label">未精算月</div><div class="s-value unpaid">${unpaidCount}ヶ月</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📅 月別売上・精算状況</div>
+      <table>
+        <thead><tr><th>月</th><th style="text-align:right">売上</th><th style="text-align:right">振込額</th><th style="text-align:center">精算状況</th></tr></thead>
+        <tbody>${months.length ? months.map(m=>`
+          <tr>
+            <td style="font-weight:500">${m.label}</td>
+            <td style="text-align:right" class="amount">¥${m.revenue.toLocaleString()}</td>
+            <td style="text-align:right" class="amount">¥${m.payout.toLocaleString()}</td>
+            <td style="text-align:center">${m.paid ? '<span class="badge-paid">✓ 精算済み</span>' : '<span class="badge-unpaid">○ 未精算</span>'}</td>
+          </tr>`).join('') : '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:32px">売上データがありません</td></tr>'}</tbody>
+      </table>
+    </div>
+    <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:16px">データ更新日時：${fmtDate(viewData.generatedAt)}</p>
+  `;
+}
 
-  // 月別テーブル
-  const tbody = document.getElementById('months-tbody');
-  if (!months.length) {
-    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:32px">売上データがありません</td></tr>';
-  } else {
-    tbody.innerHTML = months.map(m => `
+// ===== 管理者ビュー =====
+function showAdminScreen() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('logout-btn').style.display = 'block';
+  document.getElementById('admin-badge').style.display = 'inline-block';
+
+  const sellers = viewData.sellers || [];
+
+  // 全体サマリー
+  const totalRev  = sellers.reduce((sum,s) => sum + (s.months||[]).reduce((a,m)=>a+m.revenue,0), 0);
+  const totalPay  = sellers.reduce((sum,s) => sum + (s.months||[]).reduce((a,m)=>a+m.payout,0), 0);
+  const unpaidAll = sellers.reduce((sum,s) => sum + (s.months||[]).filter(m=>!m.paid).length, 0);
+
+  const rows = sellers.map((s,i) => {
+    const months = (s.months||[]).slice().sort((a,b)=>b.monthId.localeCompare(a.monthId));
+    const rev   = months.reduce((sum,m)=>sum+m.revenue,0);
+    const pay   = months.reduce((sum,m)=>sum+m.payout,0);
+    const unpd  = months.filter(m=>!m.paid).length;
+    const detailId = 'detail-'+i;
+
+    const detailRows = months.map(m=>`
       <tr>
-        <td style="font-weight:500">${m.label}</td>
-        <td style="text-align:right" class="amount">¥${m.revenue.toLocaleString()}</td>
-        <td style="text-align:right" class="amount" style="color:var(--deep-rose)">¥${m.payout.toLocaleString()}</td>
-        <td style="text-align:center">
-          ${m.paid
-            ? '<span class="badge-paid">✓ 精算済み</span>'
-            : '<span class="badge-unpaid">○ 未精算</span>'}
-        </td>
-      </tr>
-    `).join('');
-  }
+        <td style="padding-left:28px">${m.label}</td>
+        <td style="text-align:right">¥${m.revenue.toLocaleString()}</td>
+        <td style="text-align:right">¥${m.payout.toLocaleString()}</td>
+        <td style="text-align:center">${m.paid ? '<span class="badge-paid">✓ 精算済み</span>' : '<span class="badge-unpaid">○ 未精算</span>'}</td>
+      </tr>`).join('');
 
-  // 更新日時
-  if (viewData.generatedAt) {
-    const d = new Date(viewData.generatedAt);
-    document.getElementById('generated-at').textContent =
-      d.toLocaleDateString('ja-JP') + ' ' + d.toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'});
-  }
+    return `
+      <tr class="seller-row" onclick="toggleDetail('${detailId}', this)">
+        <td>${s.name} <span class="toggle-icon" id="icon-${detailId}">▶</span></td>
+        <td style="text-align:right">¥${rev.toLocaleString()}</td>
+        <td style="text-align:right">¥${pay.toLocaleString()}</td>
+        <td style="text-align:center">${unpd > 0 ? `<span class="badge-unpaid">${unpd}ヶ月</span>` : '<span class="badge-paid">全精算済</span>'}</td>
+      </tr>
+      <tr class="detail-row" id="${detailId}">
+        <td colspan="4">
+          <div class="detail-inner">
+            <table>
+              <thead><tr><th style="padding-left:28px">月</th><th style="text-align:right">売上</th><th style="text-align:right">振込額</th><th style="text-align:center">精算状況</th></tr></thead>
+              <tbody>${detailRows || '<tr><td colspan="4" style="text-align:center;padding:12px;color:var(--muted)">データなし</td></tr>'}</tbody>
+            </table>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+
+  const ms = document.getElementById('main-screen');
+  ms.style.display = 'block';
+  ms.innerHTML = `
+    <div class="welcome">全販売者 <span>売上一覧</span></div>
+    <div class="summary-bar">
+      <div class="summary-item"><div class="s-label">全体売上合計</div><div class="s-value">¥${totalRev.toLocaleString()}</div></div>
+      <div class="summary-item"><div class="s-label">全体振込合計</div><div class="s-value">¥${totalPay.toLocaleString()}</div></div>
+      <div class="summary-item"><div class="s-label">未精算（全体）</div><div class="s-value unpaid">${unpaidAll}ヶ月</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">👥 販売者別売上（名前をクリックで月別展開）</div>
+      <table>
+        <thead><tr><th>販売者名</th><th style="text-align:right">累計売上</th><th style="text-align:right">累計振込額</th><th style="text-align:center">未精算</th></tr></thead>
+        <tbody>${rows || '<tr><td colspan="4" style="text-align:center;padding:32px;color:var(--muted)">データがありません</td></tr>'}</tbody>
+      </table>
+    </div>
+    <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:16px">データ更新日時：${fmtDate(viewData.generatedAt)}</p>
+  `;
+}
+
+function toggleDetail(id, row) {
+  const detail = document.getElementById(id);
+  const icon = document.getElementById('icon-' + id);
+  const open = detail.style.display === 'table-row';
+  detail.style.display = open ? 'none' : 'table-row';
+  icon.textContent = open ? '▶' : '▼';
 }
 
 function logout() {
-  currentSeller = null;
+  isAdmin = false;
   document.getElementById('main-screen').style.display = 'none';
+  document.getElementById('main-screen').innerHTML = '';
   document.getElementById('logout-btn').style.display = 'none';
+  document.getElementById('admin-badge').style.display = 'none';
   document.getElementById('login-id').value = '';
   document.getElementById('login-pw').value = '';
   document.getElementById('login-screen').style.display = 'flex';
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleDateString('ja-JP') + ' ' + d.toLocaleTimeString('ja-JP', {hour:'2-digit', minute:'2-digit'});
 }
 
 loadData();

@@ -190,6 +190,12 @@ tfoot td.num { text-align: right; }
     <div class="card-title">👥 登録済み販売者 <span id="s-count" style="font-size:12px;font-weight:400;color:var(--muted)"></span>
       <button class="btn btn-sm" style="margin-left:auto;background:#7aaa8a;color:white;font-size:12px" onclick="exportViewerData()">🌐 販売者ページを更新</button>
     </div>
+    <div style="display:flex;align-items:center;gap:16px;padding:10px 14px;background:var(--cream);border-radius:8px;border:1px solid var(--light-border);margin-bottom:14px;flex-wrap:wrap">
+      <span style="font-size:11px;font-weight:600;color:var(--muted)">🔑 管理者ログイン</span>
+      <span style="font-size:12px">ID: <code id="admin-id-disp" style="background:white;padding:2px 8px;border-radius:4px;border:1px solid var(--border)"></code></span>
+      <span style="font-size:12px">PW: <code id="admin-pw-disp" style="background:white;padding:2px 8px;border-radius:4px;border:1px solid var(--border)"></code></span>
+      <button class="btn btn-sm btn-secondary" style="font-size:11px;padding:3px 8px" onclick="copyAdminCreds()" title="管理者ID/PWをコピー">📋 コピー</button>
+    </div>
     <div id="sellers-list"></div>
   </div>
   <div class="card" id="product-card" style="display:none">
@@ -384,7 +390,7 @@ tfoot td.num { text-align: right; }
 
 <script>
 // ===== State =====
-const S = { sellers:[], records:[], payments:{}, vendorMap:{}, curMonthId:null, curProdSeller:null, sortKey:'revenue', sortAsc:false, pendingImport:null, _detailRows:[], _editingRows:new Set() };
+const S = { sellers:[], records:[], payments:{}, vendorMap:{}, curMonthId:null, curProdSeller:null, sortKey:'revenue', sortAsc:false, pendingImport:null, _detailRows:[], _editingRows:new Set(), adminId:'', adminPw:'' };
 // payments 構造: { "monthId_sellerId": true } → 支払い済みフラグ
 // vendorMap 構造: { "Lavique（ラヴィーク）": "sellerId" } → Vendor→販売者マッピング
 
@@ -394,6 +400,7 @@ function persist() {
     localStorage.setItem('lv2_r', JSON.stringify(S.records));
     localStorage.setItem('lv2_p', JSON.stringify(S.payments));
     localStorage.setItem('lv2_v', JSON.stringify(S.vendorMap));
+    localStorage.setItem('lv2_admin', JSON.stringify({id:S.adminId, pw:S.adminPw}));
   } catch(e){}
 }
 function hydrate() {
@@ -402,10 +409,16 @@ function hydrate() {
     S.records = JSON.parse(localStorage.getItem('lv2_r')||'[]');
     S.payments = JSON.parse(localStorage.getItem('lv2_p')||'{}');
     S.vendorMap = JSON.parse(localStorage.getItem('lv2_v')||'{}');
+    const adm = JSON.parse(localStorage.getItem('lv2_admin')||'{}');
+    S.adminId = adm.id || '';
+    S.adminPw = adm.pw || '';
+    // 管理者IDが未設定なら自動生成
+    if (!S.adminId) S.adminId = 'admin-' + Math.random().toString(36).slice(2,6).toUpperCase();
+    if (!S.adminPw) S.adminPw = genPassword();
     // 既存販売者にログインID・PWが未設定 or 旧形式なら自動付与
     let updated = false;
     S.sellers.forEach(s => { if (!s.loginId || !s.loginId.startsWith('Lavique-') || !s.loginPw) { ensureLoginCreds(s); updated = true; } });
-    if (updated) persist();
+    persist();
   } catch(e){}
 }
 
@@ -466,11 +479,17 @@ function copySellerCreds(id) {
   const text = `【Lavique 売上確認ページ】\nURL：${url}\nID：${s.loginId}\nPW：${s.loginPw}`;
   navigator.clipboard.writeText(text).then(()=>toast('コピーしました ✓')).catch(()=>toast('コピー失敗','err'));
 }
+function copyAdminCreds() {
+  const url = location.href.replace(/\/[^/]*$|$/, '/viewer.html');
+  const text = `【Lavique 管理者ログイン】\nURL：${url}\nID：${S.adminId}\nPW：${S.adminPw}`;
+  navigator.clipboard.writeText(text).then(()=>toast('管理者情報をコピーしました ✓')).catch(()=>toast('コピー失敗','err'));
+}
 function exportViewerData() {
   if (!S.sellers.length) { toast('販売者が登録されていません','err'); return; }
   // 各販売者の月別集計と支払い状況をまとめる
   const viewData = {
     generatedAt: new Date().toISOString(),
+    admin: { loginId: S.adminId, loginPw: S.adminPw },
     sellers: S.sellers.map(s => {
       const months = S.records.map(rec => {
         const rows = agg(rec.rows.filter(r => r.sellerId === s.id), rec.id);
@@ -510,6 +529,8 @@ function delSeller(id) {
 }
 function renderSellersList() {
   document.getElementById('s-count').textContent = S.sellers.length+'名登録済み';
+  document.getElementById('admin-id-disp').textContent = S.adminId;
+  document.getElementById('admin-pw-disp').textContent = S.adminPw;
   const el = document.getElementById('sellers-list');
   if (!S.sellers.length) { el.innerHTML='<div class="empty" style="padding:36px"><div class="ei">👥</div><p>まだ登録されていません</p></div>'; return; }
   el.innerHTML = `<div class="table-wrap"><table>
