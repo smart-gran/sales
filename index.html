@@ -402,9 +402,9 @@ function hydrate() {
     S.records = JSON.parse(localStorage.getItem('lv2_r')||'[]');
     S.payments = JSON.parse(localStorage.getItem('lv2_p')||'{}');
     S.vendorMap = JSON.parse(localStorage.getItem('lv2_v')||'{}');
-    // 既存販売者にログインID・PWが未設定なら自動付与
+    // 既存販売者にログインID・PWが未設定 or 旧形式なら自動付与
     let updated = false;
-    S.sellers.forEach(s => { if (!s.loginId || !s.loginPw) { ensureLoginCreds(s); updated = true; } });
+    S.sellers.forEach(s => { if (!s.loginId || !s.loginId.startsWith('Lavique-') || !s.loginPw) { ensureLoginCreds(s); updated = true; } });
     if (updated) persist();
   } catch(e){}
 }
@@ -425,10 +425,9 @@ function toast(msg, type='ok') {
 }
 
 // ===== Sellers =====
-function genLoginId(name) {
-  const romaji = (name||'').replace(/\s+/g,'').slice(0,8);
-  const rand = Math.random().toString(36).slice(2,6);
-  return romaji + '-' + rand;
+function genLoginId() {
+  const rand = Math.random().toString(36).slice(2,8).toUpperCase();
+  return 'Lavique-' + rand;
 }
 function genPassword() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
@@ -437,7 +436,7 @@ function genPassword() {
   return pw;
 }
 function ensureLoginCreds(seller) {
-  if (!seller.loginId) seller.loginId = genLoginId(seller.name);
+  if (!seller.loginId || !seller.loginId.startsWith('Lavique-')) seller.loginId = genLoginId();
   if (!seller.loginPw) seller.loginPw = genPassword();
 }
 function saveSeller() {
