@@ -187,7 +187,9 @@ tfoot td.num { text-align: right; }
     <button class="btn btn-primary" onclick="saveSeller()">＋ 登録する</button>
   </div>
   <div class="card">
-    <div class="card-title">👥 登録済み販売者 <span id="s-count" style="margin-left:auto;font-size:12px;font-weight:400;color:var(--muted)"></span></div>
+    <div class="card-title">👥 登録済み販売者 <span id="s-count" style="font-size:12px;font-weight:400;color:var(--muted)"></span>
+      <button class="btn btn-sm" style="margin-left:auto;background:#7aaa8a;color:white;font-size:12px" onclick="exportViewerData()">🌐 販売者ページを更新</button>
+    </div>
     <div id="sellers-list"></div>
   </div>
   <div class="card" id="product-card" style="display:none">
@@ -400,6 +402,10 @@ function hydrate() {
     S.records = JSON.parse(localStorage.getItem('lv2_r')||'[]');
     S.payments = JSON.parse(localStorage.getItem('lv2_p')||'{}');
     S.vendorMap = JSON.parse(localStorage.getItem('lv2_v')||'{}');
+    // 既存販売者にログインID・PWが未設定なら自動付与
+    let updated = false;
+    S.sellers.forEach(s => { if (!s.loginId || !s.loginPw) { ensureLoginCreds(s); updated = true; } });
+    if (updated) persist();
   } catch(e){}
 }
 
@@ -419,11 +425,26 @@ function toast(msg, type='ok') {
 }
 
 // ===== Sellers =====
+function genLoginId(name) {
+  const romaji = (name||'').replace(/\s+/g,'').slice(0,8);
+  const rand = Math.random().toString(36).slice(2,6);
+  return romaji + '-' + rand;
+}
+function genPassword() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+  let pw = '';
+  for (let i=0; i<8; i++) pw += chars[Math.floor(Math.random()*chars.length)];
+  return pw;
+}
+function ensureLoginCreds(seller) {
+  if (!seller.loginId) seller.loginId = genLoginId(seller.name);
+  if (!seller.loginPw) seller.loginPw = genPassword();
+}
 function saveSeller() {
   const name = document.getElementById('s-name').value.trim();
   const vendor = document.getElementById('s-vendor').value.trim();
   if (!name) { toast('販売者名は必須です','err'); return; }
-  S.sellers.push({ id:Date.now()+'', name, vendor,
+  const seller = { id:Date.now()+'', name, vendor,
     email:document.getElementById('s-email').value.trim(),
     phone:document.getElementById('s-phone').value.trim(),
     address:document.getElementById('s-address').value.trim(),
@@ -433,10 +454,54 @@ function saveSeller() {
     banknum:document.getElementById('s-banknum').value.trim(),
     bankname:document.getElementById('s-bankname').value.trim(),
     products:[]
-  });
+  };
+  ensureLoginCreds(seller);
+  S.sellers.push(seller);
   persist(); renderSellersList();
   ['s-name','s-vendor','s-email','s-phone','s-address','s-sheeturl','s-bank','s-banknum','s-bankname'].forEach(id=>document.getElementById(id).value='');
   toast('販売者を登録しました ✓');
+}
+function copySellerCreds(id) {
+  const s = S.sellers.find(x=>x.id===id); if (!s) return;
+  const url = location.href.replace(/\/[^/]*$|$/, '/viewer.html');
+  const text = `【Lavique 売上確認ページ】\nURL：${url}\nID：${s.loginId}\nPW：${s.loginPw}`;
+  navigator.clipboard.writeText(text).then(()=>toast('コピーしました ✓')).catch(()=>toast('コピー失敗','err'));
+}
+function exportViewerData() {
+  if (!S.sellers.length) { toast('販売者が登録されていません','err'); return; }
+  // 各販売者の月別集計と支払い状況をまとめる
+  const viewData = {
+    generatedAt: new Date().toISOString(),
+    sellers: S.sellers.map(s => {
+      const months = S.records.map(rec => {
+        const rows = agg(rec.rows.filter(r => r.sellerId === s.id), rec.id);
+        const revenue = rows.reduce((sum,r)=>sum+r.revenue,0);
+        const payout = rows.reduce((sum,r)=>sum+r.payout,0);
+        const commission = rows.reduce((sum,r)=>sum+r.commission,0);
+        if (revenue === 0) return null;
+        return {
+          monthId: rec.id,
+          label: rec.label,
+          revenue,
+          commission,
+          payout,
+          paid: isPaid(rec.id, s.id)
+        };
+      }).filter(Boolean);
+      return {
+        loginId: s.loginId,
+        loginPw: s.loginPw,
+        name: s.name,
+        months
+      };
+    })
+  };
+  const blob = new Blob([JSON.stringify(viewData, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'sales_data.json';
+  a.click();
+  toast('sales_data.json をDLしました。GitHubにアップしてください ✓');
 }
 function delSeller(id) {
   if (!confirm('削除しますか？')) return;
@@ -449,14 +514,18 @@ function renderSellersList() {
   const el = document.getElementById('sellers-list');
   if (!S.sellers.length) { el.innerHTML='<div class="empty" style="padding:36px"><div class="ei">👥</div><p>まだ登録されていません</p></div>'; return; }
   el.innerHTML = `<div class="table-wrap"><table>
-    <thead><tr><th>販売者名</th><th>Vendor名</th><th>メール</th><th>スプレッドシート</th><th style="text-align:center">商品数</th><th></th></tr></thead>
+    <thead><tr><th>販売者名</th><th>Vendor名</th><th>メール</th><th>閲覧ID</th><th>閲覧PW</th><th style="text-align:center">商品数</th><th></th></tr></thead>
     <tbody>${S.sellers.map(s=>{
       const pc=(s.products||[]).length;
+      const creds = `ID：${s.loginId||''}　PW：${s.loginPw||''}`;
       return `<tr>
         <td><strong>${s.name}</strong></td>
-        <td><span class="badge badge-vendor">${s.vendor}</span></td>
+        <td><span class="badge badge-vendor">${s.vendor||'—'}</span></td>
         <td style="font-size:12px">${s.email||'—'}</td>
-        <td>${s.sheetUrl?`<a class="url-link" href="${s.sheetUrl}" target="_blank">🔗 開く</a>`:'<span style="font-size:11px;color:var(--muted)">未登録</span>'}</td>
+        <td><code style="font-size:12px;background:var(--cream);padding:2px 6px;border-radius:4px">${s.loginId||'—'}</code></td>
+        <td><code style="font-size:12px;background:var(--cream);padding:2px 6px;border-radius:4px">${s.loginPw||'—'}</code>
+          <button class="btn btn-sm btn-secondary" style="font-size:11px;padding:3px 8px;margin-left:4px" onclick="copySellerCreds('${s.id}')" title="IDとPWをコピー">📋</button>
+        </td>
         <td style="text-align:center;font-weight:600;color:${pc>0?'var(--deep-rose)':'var(--muted)'}">${pc}件</td>
         <td style="display:flex;gap:6px;justify-content:flex-end">
           <button class="btn btn-outline btn-sm" onclick="openProducts('${s.id}')">🛍 商品</button>
