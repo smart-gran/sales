@@ -496,7 +496,6 @@ function exportViewerData() {
         const revenue = rows.reduce((sum,r)=>sum+r.revenue,0);
         const payout = rows.reduce((sum,r)=>sum+r.payout,0);
         const commission = rows.reduce((sum,r)=>sum+r.commission,0);
-        if (revenue === 0) return null;
         return {
           monthId: rec.id,
           label: rec.label,
