@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T04:49:44.898Z",
+  "generatedAt": "2026-11-05T06:45:06.349Z",
   "admin": {
     "loginId": "admin-CSGD",
     "loginPw": "RSgn9Y7p"
@@ -5381,14 +5381,9 @@
           "payout": 0,
           "paid": false,
           "rate": 0.2,
-          "tfee": 0,
-          "final": 44830,
-          "carryovers": [
-            {
-              "label": "2026年8月",
-              "payout": 44830
-            }
-          ],
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
           "items": []
         },
         {
@@ -5399,14 +5394,9 @@
           "payout": 0,
           "paid": false,
           "rate": 0.2,
-          "tfee": 0,
-          "final": 44830,
-          "carryovers": [
-            {
-              "label": "2026年8月",
-              "payout": 44830
-            }
-          ],
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
           "items": []
         },
         {
@@ -5415,7 +5405,7 @@
           "revenue": 44830,
           "commission": 0,
           "payout": 44830,
-          "paid": false,
+          "paid": true,
           "rate": 0,
           "tfee": 0,
           "final": 44830,
