@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T08:19:28.330Z",
+  "generatedAt": "2026-11-05T04:49:44.898Z",
   "admin": {
     "loginId": "admin-CSGD",
     "loginPw": "RSgn9Y7p"
@@ -10,6 +10,32 @@
       "loginPw": "YmM5xKwH",
       "name": "飯田明美",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 0,
+          "final": 88592,
+          "carryovers": [
+            {
+              "label": "2026年2月",
+              "payout": 75600
+            },
+            {
+              "label": "2026年3月",
+              "payout": 5600
+            },
+            {
+              "label": "2026年9月",
+              "payout": 7392
+            }
+          ],
+          "items": []
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -220,6 +246,26 @@
       "name": "寺嶋未央",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 3000,
+          "commission": 600,
+          "payout": 2400,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 2100,
+          "carryovers": [],
+          "items": [
+            {
+              "name": "【予約販売】アメリーとアーロの小さな物語｜ランダム3枚セット（9/1発送開始） - ランダム3枚セット（ハガキサイズ）",
+              "price": 3000,
+              "qty": 1,
+              "revenue": 3000
+            }
+          ]
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 0,
@@ -384,6 +430,31 @@
       "loginPw": "GYXsbWWQ",
       "name": "中村直子",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 1540,
+          "commission": 308,
+          "payout": 1232,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 3348,
+          "carryovers": [
+            {
+              "label": "2026年9月",
+              "payout": 2416
+            }
+          ],
+          "items": [
+            {
+              "name": "Little Bunny's TeaTime - 白磁用（A4）",
+              "price": 1540,
+              "qty": 1,
+              "revenue": 1540
+            }
+          ]
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -671,6 +742,48 @@
       "loginPw": "JHT5Am7d",
       "name": "河崎　友美",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 0,
+          "final": 68062,
+          "carryovers": [
+            {
+              "label": "2026年2月",
+              "payout": 3696
+            },
+            {
+              "label": "2026年3月",
+              "payout": 1232
+            },
+            {
+              "label": "2026年5月",
+              "payout": 1232
+            },
+            {
+              "label": "2026年6月",
+              "payout": 2464
+            },
+            {
+              "label": "2026年7月",
+              "payout": 6816
+            },
+            {
+              "label": "2026年8月",
+              "payout": 51390
+            },
+            {
+              "label": "2026年9月",
+              "payout": 1232
+            }
+          ],
+          "items": []
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -984,6 +1097,51 @@
       "loginPw": "88sAHGCQ",
       "name": "平賀千晴",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 1480,
+          "commission": 296,
+          "payout": 1184,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 0,
+          "final": 152805,
+          "carryovers": [
+            {
+              "label": "2026年2月",
+              "payout": 6720
+            },
+            {
+              "label": "2026年3月",
+              "payout": 4480
+            },
+            {
+              "label": "2026年5月",
+              "payout": 6128
+            },
+            {
+              "label": "2026年6月",
+              "payout": 4056
+            },
+            {
+              "label": "2026年7月",
+              "payout": 1352
+            },
+            {
+              "label": "2026年8月",
+              "payout": 128885
+            }
+          ],
+          "items": [
+            {
+              "name": "Noa＆Coco　Bear - Noa ベア(男の子)（A4）",
+              "price": 1480,
+              "qty": 1,
+              "revenue": 1480
+            }
+          ]
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -1321,6 +1479,26 @@
       "name": "小鹿倉　美香",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 1350,
+          "commission": 270,
+          "payout": 1080,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 780,
+          "carryovers": [],
+          "items": [
+            {
+              "name": "Cherish Dog （チェリッシュドッグ）｜A4",
+              "price": 1350,
+              "qty": 1,
+              "revenue": 1350
+            }
+          ]
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 0,
@@ -1521,6 +1699,36 @@
       "loginPw": "p3fyC4BJ",
       "name": "山下紗栄子",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 0,
+          "final": 22260,
+          "carryovers": [
+            {
+              "label": "2026年2月",
+              "payout": 4960
+            },
+            {
+              "label": "2026年3月",
+              "payout": 1600
+            },
+            {
+              "label": "2026年6月",
+              "payout": 9600
+            },
+            {
+              "label": "2026年8月",
+              "payout": 6100
+            }
+          ],
+          "items": []
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -1754,6 +1962,19 @@
       "name": "神山桃子",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 0,
@@ -1954,6 +2175,24 @@
       "loginPw": "r7jDmLNt",
       "name": "平山春佳",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 3132,
+          "carryovers": [
+            {
+              "label": "2026年9月",
+              "payout": 3432
+            }
+          ],
+          "items": []
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -2193,6 +2432,73 @@
       "loginPw": "m5SVYHmA",
       "name": "後藤愛",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 68780,
+          "commission": 13756,
+          "payout": 55024,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 0,
+          "final": 323184,
+          "carryovers": [
+            {
+              "label": "2026年4月",
+              "payout": 2464
+            },
+            {
+              "label": "2026年5月",
+              "payout": 61552
+            },
+            {
+              "label": "2026年6月",
+              "payout": 104192
+            },
+            {
+              "label": "2026年7月",
+              "payout": 99952
+            }
+          ],
+          "items": [
+            {
+              "name": "パールコース養成用 協会登録・ディプロマ申請費",
+              "price": 0,
+              "qty": 2,
+              "revenue": 0
+            },
+            {
+              "name": "Princess Afternoon Tea（プリンセスアフタヌーンティー） - 白磁用（A4）",
+              "price": 1540,
+              "qty": 1,
+              "revenue": 1540
+            },
+            {
+              "name": "アンティーク（花柄・くま柄） - 【ガラス】アンティークくま（A4）",
+              "price": 1540,
+              "qty": 1,
+              "revenue": 1540
+            },
+            {
+              "name": "ポーセラーツ ダブルウォールグラス 300ml｜二重構造・結露しにくい・レンジ可",
+              "price": 1300,
+              "qty": 18,
+              "revenue": 23400
+            },
+            {
+              "name": "オーブンデキャール - オーブンデキャールスターターキット(転写紙2枚、プライマー、動画サイト)",
+              "price": 4980,
+              "qty": 2,
+              "revenue": 9960
+            },
+            {
+              "name": "Strawberry Party（ストロベリーパーティー） - 白磁用（A4）",
+              "price": 1540,
+              "qty": 21,
+              "revenue": 32340
+            }
+          ]
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -2943,6 +3249,24 @@
       "name": "赤間桂子",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 2164,
+          "carryovers": [
+            {
+              "label": "2026年9月",
+              "payout": 2464
+            }
+          ],
+          "items": []
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 3080,
@@ -3137,6 +3461,40 @@
       "loginPw": "JKE3xJ7t",
       "name": "土岡　美和",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 16332,
+          "carryovers": [
+            {
+              "label": "2026年3月",
+              "payout": 1232
+            },
+            {
+              "label": "2026年5月",
+              "payout": 1232
+            },
+            {
+              "label": "2026年6月",
+              "payout": 3696
+            },
+            {
+              "label": "2026年7月",
+              "payout": 1232
+            },
+            {
+              "label": "2026年8月",
+              "payout": 9240
+            }
+          ],
+          "items": []
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -3354,6 +3712,26 @@
       "name": "今野洋子",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 1200,
+          "commission": 240,
+          "payout": 960,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 660,
+          "carryovers": [],
+          "items": [
+            {
+              "name": "AHN MIKA CAT - AHN MIKA CAT#1（ガラス用）（A4）",
+              "price": 1200,
+              "qty": 1,
+              "revenue": 1200
+            }
+          ]
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 0,
@@ -3559,6 +3937,37 @@
       "name": "宮内明代",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 3020,
+          "commission": 604,
+          "payout": 2416,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 4484,
+          "carryovers": [
+            {
+              "label": "2026年9月",
+              "payout": 2368
+            }
+          ],
+          "items": [
+            {
+              "name": "Strawberry Party（ストロベリーパーティー） - ガラス用（A4）",
+              "price": 1540,
+              "qty": 1,
+              "revenue": 1540
+            },
+            {
+              "name": "Sunny Beach Friends／Strawberry Picnic 転写紙〈2種〉 - Strawberry Picnic（A4）",
+              "price": 1480,
+              "qty": 1,
+              "revenue": 1480
+            }
+          ]
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 2960,
@@ -3739,6 +4148,24 @@
       "name": "Snow Rabbit ゆはらゆき",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 2164,
+          "carryovers": [
+            {
+              "label": "2026年9月",
+              "payout": 2464
+            }
+          ],
+          "items": []
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 3080,
@@ -3883,6 +4310,19 @@
       "name": "富田有香里",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 0,
@@ -3993,6 +4433,19 @@
       "loginPw": "eHXS9SyA",
       "name": "山脇　智鶴",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -4124,6 +4577,24 @@
       "name": "石川 葵",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 17200,
+          "carryovers": [
+            {
+              "label": "2026年8月",
+              "payout": 17500
+            }
+          ],
+          "items": []
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 0,
@@ -4252,6 +4723,24 @@
       "loginPw": "kkRvmckM",
       "name": "小野　ひろみ",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 0,
+          "final": 26580,
+          "carryovers": [
+            {
+              "label": "2026年8月",
+              "payout": 26580
+            }
+          ],
+          "items": []
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -4387,6 +4876,26 @@
       "loginPw": "eTGev7TM",
       "name": "薄井晴香",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 1200,
+          "commission": 240,
+          "payout": 960,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 660,
+          "carryovers": [],
+          "items": [
+            {
+              "name": "REX（レックス） - 1枚（A4）",
+              "price": 1200,
+              "qty": 1,
+              "revenue": 1200
+            }
+          ]
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -4536,6 +5045,28 @@
       "name": "田中里奈",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 18796,
+          "carryovers": [
+            {
+              "label": "2026年8月",
+              "payout": 15400
+            },
+            {
+              "label": "2026年9月",
+              "payout": 3696
+            }
+          ],
+          "items": []
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 4620,
@@ -4671,6 +5202,35 @@
       "loginPw": "K6pxxRG9",
       "name": "武田志織",
       "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 7700,
+          "commission": 1540,
+          "payout": 6160,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 0,
+          "final": 31416,
+          "carryovers": [
+            {
+              "label": "2026年8月",
+              "payout": 15400
+            },
+            {
+              "label": "2026年9月",
+              "payout": 9856
+            }
+          ],
+          "items": [
+            {
+              "name": "Rose Teddy Garden｜バラとテディの大人可愛い転写紙 - 単品（A4）",
+              "price": 1540,
+              "qty": 5,
+              "revenue": 7700
+            }
+          ]
+        },
         {
           "monthId": "1792566167516",
           "label": "2026年9月",
@@ -4814,6 +5374,24 @@
       "name": "薦田有香",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 0,
+          "final": 44830,
+          "carryovers": [
+            {
+              "label": "2026年8月",
+              "payout": 44830
+            }
+          ],
+          "items": []
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 0,
@@ -4949,6 +5527,24 @@
       "name": "中川里佳",
       "months": [
         {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 9600,
+          "carryovers": [
+            {
+              "label": "2026年8月",
+              "payout": 9900
+            }
+          ],
+          "items": []
+        },
+        {
           "monthId": "1792566167516",
           "label": "2026年9月",
           "revenue": 0,
@@ -4991,6 +5587,548 @@
               "revenue": 550
             }
           ]
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1777600399446",
+          "label": "2026年4月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-HFK436",
+      "loginPw": "kQfSkuyX",
+      "name": "二瓶瑶子",
+      "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 1800,
+          "commission": 360,
+          "payout": 1440,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 1140,
+          "carryovers": [],
+          "items": [
+            {
+              "name": "Little Parade -Red ＆ Black-｜作品を引き立てる名バイプレイヤー転写紙（A3） - 単品（A3）",
+              "price": 1800,
+              "qty": 1,
+              "revenue": 1800
+            }
+          ]
+        },
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1777600399446",
+          "label": "2026年4月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-15TZ4D",
+      "loginPw": "7BxQ8ZWC",
+      "name": "竹岡綾花",
+      "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 9240,
+          "commission": 1848,
+          "payout": 7392,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 7092,
+          "carryovers": [],
+          "items": [
+            {
+              "name": "Royal Cat（ロイヤルキャット）｜猫とお花とリボンのときめく転写紙 - 単品（A4）",
+              "price": 1540,
+              "qty": 5,
+              "revenue": 7700
+            },
+            {
+              "name": "Teddy Blue（テディブルー）｜幸せを運ぶブルーのテディベア転写紙 - 単品（A4）",
+              "price": 1540,
+              "qty": 1,
+              "revenue": 1540
+            }
+          ]
+        },
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1777600399446",
+          "label": "2026年4月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-Y0U91C",
+      "loginPw": "cxf5m67Y",
+      "name": "加藤ひなこ",
+      "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 10780,
+          "commission": 2156,
+          "payout": 8624,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 8324,
+          "carryovers": [],
+          "items": [
+            {
+              "name": "Teddy Blue（テディブルー）｜幸せを運ぶブルーのテディベア転写紙 - 単品（A4）",
+              "price": 1540,
+              "qty": 4,
+              "revenue": 6160
+            },
+            {
+              "name": "Maison des Petits “Teddy Bleu”（テディ・ブルー）｜フレンチクラシカルなテディベア転写紙 - 単品（A4）",
+              "price": 1540,
+              "qty": 2,
+              "revenue": 3080
+            },
+            {
+              "name": "Maison des Petits “Lapin Bleu”（ラパン・ブルー）｜フレンチクラシカルなうさぎの転写紙 - 単品（A4）",
+              "price": 1540,
+              "qty": 1,
+              "revenue": 1540
+            }
+          ]
+        },
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1785806964275",
+          "label": "2026年7月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1782886770889",
+          "label": "2026年6月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1780372845146",
+          "label": "2026年5月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1777600399446",
+          "label": "2026年4月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1775087818618",
+          "label": "2026年3月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1772772888091",
+          "label": "2026年2月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        }
+      ]
+    },
+    {
+      "loginId": "Lavique-LH2GB7",
+      "loginPw": "F7Srcvsg",
+      "name": "島田のりこ",
+      "months": [
+        {
+          "monthId": "1793853189081",
+          "label": "2026年10月",
+          "revenue": 1680,
+          "commission": 336,
+          "payout": 1344,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 1044,
+          "carryovers": [],
+          "items": [
+            {
+              "name": "Dreamy Treasure Box｜夢見る少女のトキメキ転写紙 - 単品（A4）",
+              "price": 1680,
+              "qty": 1,
+              "revenue": 1680
+            }
+          ]
+        },
+        {
+          "monthId": "1792566167516",
+          "label": "2026年9月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0.2,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
+        },
+        {
+          "monthId": "1790211786803",
+          "label": "2026年8月",
+          "revenue": 0,
+          "commission": 0,
+          "payout": 0,
+          "paid": false,
+          "rate": 0,
+          "tfee": 300,
+          "final": 0,
+          "carryovers": [],
+          "items": []
         },
         {
           "monthId": "1785806964275",
